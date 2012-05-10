@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="MainDataMng" transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<class>com.itg.maindata.domain.MdDepartment</class>
+		<class>com.itg.maindata.domain.MdPsn</class>
+		<class>com.itg.maindata.domain.RAuthMenu</class>
+		<class>com.itg.maindata.domain.RPsnDept</class>
+		<class>com.itg.maindata.domain.RUserAuth</class>
+		<class>com.itg.maindata.domain.SyAuthority</class>
+		<class>com.itg.maindata.domain.SyMenu</class>
+		<class>com.itg.maindata.domain.SyUser</class>
+		
+
+		<properties>
+
+			<property name="hibernate.connection.driver_class" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+			<property name="hibernate.connection.url" value="jdbc:sqlserver://172.16.10.237:1433;databaseName=phone" />
+			<property name="hibernate.connection.username" value="bookdbo" />
+			<property name="hibernate.connection.password" value="ksfa" />
+			<property name=" hibernate.show_sql " value="true" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<!-- 调整JDBC抓取数量的大小: Statement.setFetchSize() -->
+			<property name="hibernate.jdbc.fetch_size" value="18" />
+			<!-- 调整JDBC批量更新数量 -->
+			<property name="hibernate.jdbc.batch_size" value="10" />
+			<!-- 显示最终执行的SQL -->
+			<property name="hibernate.show_sql" value="true" />
+			<!-- 格式化显示的SQL -->
+			<property name="hibernate.format_sql" value="true" />
+
+		</properties>
+
+
+	</persistence-unit>
+</persistence>
