@@ -1,28 +1,29 @@
 package com.itg.maindata.domain;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.UUID;
 
+import javax.persistence.*;
 
 /**
  * The persistent class for the sy_authority database table.
  * 
  */
 @Entity
-@Table(name="sy_authority")
+@Table(name = "sy_authority")
 public class SyAuthority implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="pk_authority")
-	private String pkAuthority;
+	@Column(name = "pk_authority", columnDefinition = "uniqueidentifier")
+	private String pkAuthority = UUID.randomUUID().toString();;
 
 	private String bz;
 
 	private String name;
 
-    public SyAuthority() {
-    }
+	public SyAuthority() {
+	}
 
 	public String getPkAuthority() {
 		return this.pkAuthority;

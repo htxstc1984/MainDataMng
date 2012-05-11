@@ -48,8 +48,9 @@ public class UserService {
 	public boolean updateUser(SyUser user) {
 		try {
 			userDao.updateUser(user);
-			return false;
+
 		} catch (Exception e) {
+			return false;
 			// TODO: handle exception
 		}
 		return true;
@@ -59,5 +60,9 @@ public class UserService {
 	public List<SyUser> getUsers(String sWhere) {
 		return userDao.getUsers(sWhere);
 
+	}
+
+	public boolean findRUserAuth(String pk_user, String pk_auth) {
+		return userDao.findRUserAuth(pk_user, pk_auth);
 	}
 }

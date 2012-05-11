@@ -16,6 +16,7 @@
     <context:component-scan base-package="com.itg.maindata.service"/>
     
 	<bean id="userDao" class="com.itg.maindata.dao.UserDaoImpl" />
+	<bean id="authDao" class="com.itg.maindata.dao.AuthorityDaoImpl"/>
 	<bean id="userService" class="com.itg.maindata.service.UserService" />
 	
 </beans>

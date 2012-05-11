@@ -33,15 +33,27 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public void updateUser(SyUser user) {
 		// TODO Auto-generated method stub
-		em.persist(user);
+		em.merge(user);
 	}
 
 	@Override
 	public List<SyUser> getUsers(String sWhere) {
 		// TODO Auto-generated method stub
-		
+
 		return em.createQuery("select s from SyUser s where " + sWhere,
 				SyUser.class).getResultList();
 	}
 
+	@Override
+	public boolean findRUserAuth(String pk_user, String pk_auth) {
+		// TODO Auto-generated method stub
+		Integer count = em.createQuery(
+				"select count(a) from RUserAuth a where pkUser='" + pk_user
+						+ " and pkAuthority='" + pk_auth + "'", Integer.class)
+				.getSingleResult();
+		if (count.intValue() > 0) {
+			return true;
+		}
+		return false;
+	}
 }
