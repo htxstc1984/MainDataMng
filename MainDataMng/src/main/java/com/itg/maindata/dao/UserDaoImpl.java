@@ -39,8 +39,8 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public List<SyUser> getUsers(String sWhere) {
 		// TODO Auto-generated method stub
-
-		return em.createQuery("select * from sy_user where " + sWhere,
+		
+		return em.createQuery("select s from SyUser s where " + sWhere,
 				SyUser.class).getResultList();
 	}
 

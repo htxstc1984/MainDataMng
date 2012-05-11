@@ -8,6 +8,6 @@
 <title>创建成功</title>
 </head>
 <body>
-    ${user.userName}创建成功;
+    ${user.username}创建成功;
 </body>
 </html>

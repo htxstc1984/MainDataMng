@@ -13,11 +13,12 @@
 	<c:if test="${!empty error}">
 		<font color="red"><c:out value="${error}" /></font>
 	</c:if>
-	<form action="<c:url value="addCommand.html"/>" method="post">
+
+	<form action="<c:url value="../updateUser.html"/>" method="post">
 		用户名： <input type="text" name="userid"> <br> 密 码： <input
 			type="password" name="password"> <br> 姓名： <input
-			type="text" name="username"> <br>
-		<input type="submit" value="登录" /> <input type="reset" value="重置" />
+			type="text" name="username"> <br> <input type="submit"
+			value="修改" /> <input type="reset" value="重置" />
 	</form>
 </body>
 </html>
