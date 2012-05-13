@@ -26,6 +26,11 @@ public class UserController {
 	@Autowired
 	private AuthorityDao authorityDao;
 
+	@RequestMapping(value = "/test.html")
+	public String testExtjs() {
+		return "user/testExtjs";
+	}
+	
 	@RequestMapping(value = "/addUser.html")
 	public String addUser() {
 		return "user/userAdd";
