@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import com.itg.maindata.domain.RUserAuth;
 import com.itg.maindata.domain.SyUser;
 
 public class UserDaoImpl implements UserDao {
@@ -47,13 +48,37 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public boolean findRUserAuth(String pk_user, String pk_auth) {
 		// TODO Auto-generated method stub
-		Integer count = em.createQuery(
+		Long count = em.createQuery(
 				"select count(a) from RUserAuth a where pkUser='" + pk_user
-						+ " and pkAuthority='" + pk_auth + "'", Integer.class)
+						+ "' and pkAuthority='" + pk_auth + "'", Long.class)
 				.getSingleResult();
 		if (count.intValue() > 0) {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public void removeAuths(String pk_user) {
+		// TODO Auto-generated method stub
+		em.createQuery("delete from RUserAuth where pkUser='" + pk_user + "'")
+				.executeUpdate();
+	}
+
+	@Override
+	public void createAuths(String pk_user, String pk_auths) {
+		// TODO Auto-generated method stub
+		String[] auths = pk_auths.split(";");
+		// String inWhere = "";
+		for (String auth : auths) {
+			// inWhere = inWhere + "'" + auth + "',";
+			RUserAuth rua = new RUserAuth();
+			rua.setPkUser(pk_user);
+			rua.setPkAuthority(auth);
+			em.persist(rua);
+		}
+		// if (!inWhere.equalsIgnoreCase("")) {
+		// inWhere = inWhere.substring(0, inWhere.length() - 1);
+		// }
 	}
 }

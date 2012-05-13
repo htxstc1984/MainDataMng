@@ -1,6 +1,8 @@
 package com.itg.maindata.domain;
 
 import java.io.Serializable;
+import java.util.UUID;
+
 import javax.persistence.*;
 
 
@@ -12,20 +14,16 @@ import javax.persistence.*;
 @Table(name="r_user_auth")
 public class RUserAuth implements Serializable {
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	@Column(name="pk_r_user_auth")
-	private String pkRUserAuth;
-
-	@Column(name="pk_authority")
+	private String pkRUserAuth = UUID.randomUUID().toString();
 	private String pkAuthority;
-
-	@Column(name="pk_user")
 	private String pkUser;
 
     public RUserAuth() {
     }
 
+
+	@Id
+	@Column(name="pk_r_user_auth")
 	public String getPkRUserAuth() {
 		return this.pkRUserAuth;
 	}
@@ -34,6 +32,8 @@ public class RUserAuth implements Serializable {
 		this.pkRUserAuth = pkRUserAuth;
 	}
 
+
+	@Column(name="pk_authority")
 	public String getPkAuthority() {
 		return this.pkAuthority;
 	}
@@ -42,6 +42,8 @@ public class RUserAuth implements Serializable {
 		this.pkAuthority = pkAuthority;
 	}
 
+
+	@Column(name="pk_user")
 	public String getPkUser() {
 		return this.pkUser;
 	}

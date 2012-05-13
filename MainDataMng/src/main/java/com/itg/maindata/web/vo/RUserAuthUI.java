@@ -2,7 +2,6 @@ package com.itg.maindata.web.vo;
 
 import java.io.Serializable;
 
-import com.itg.maindata.domain.RUserAuth;
 import com.itg.maindata.domain.SyAuthority;
 
 public class RUserAuthUI implements Serializable {

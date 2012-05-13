@@ -31,6 +31,7 @@ public class UserService {
 	public boolean removeUser(String pk_user) {
 		try {
 			userDao.removeUser(pk_user);
+			userDao.removeAuths(pk_user);
 		} catch (Exception e) {
 			return false;
 			// TODO: handle exception
@@ -45,10 +46,11 @@ public class UserService {
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED)
-	public boolean updateUser(SyUser user) {
+	public boolean updateUser(SyUser user, String pk_auths) {
 		try {
 			userDao.updateUser(user);
-
+			userDao.removeAuths(user.getPkUser());
+			userDao.createAuths(user.getPkUser(), pk_auths);
 		} catch (Exception e) {
 			return false;
 			// TODO: handle exception

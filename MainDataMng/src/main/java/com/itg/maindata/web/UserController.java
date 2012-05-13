@@ -3,6 +3,8 @@ package com.itg.maindata.web;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,7 +39,7 @@ public class UserController {
 			mav.addObject("user", user);
 			return mav;
 		}
-		return new ModelAndView("user/userAdd", "error", "Ìí¼ÓÊ§°Ü");
+		return new ModelAndView("user/userAdd", "error", "ï¿½ï¿½ï¿½Ê§ï¿½ï¿½");
 	}
 
 	@RequestMapping(value = "/getUsers.html")
@@ -51,7 +53,7 @@ public class UserController {
 			return mav;
 		}
 		ModelAndView msgmav = new ModelAndView("user/message");
-		msgmav.addObject("message", "Ã»ÕÒµ½ÓÃ»§");
+		msgmav.addObject("message", "Ã»ï¿½Òµï¿½ï¿½Ã»ï¿½");
 		return msgmav;
 	}
 
@@ -78,14 +80,20 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/updateUser.html")
-	public ModelAndView updateCommand(SyUser user) {
-		boolean falg = userService.updateUser(user);
+	public ModelAndView updateCommand(HttpServletRequest request, SyUser user) {
+		if (user.getUserid() == null) {
+			ModelAndView mav = getAllUser();
+			return mav;
+		}
+		String pkAuths = request.getParameter("pkAuths");
+		System.out.println(pkAuths);
+		boolean falg = userService.updateUser(user, pkAuths);
 		if (falg) {
 			ModelAndView mav = getAllUser();
 			// mav.addObject("user", user);
 			return mav;
 		}
-		return new ModelAndView("user/user", "error", "ÐÞ¸ÄÊ§°Ü");
+		return new ModelAndView("user/user", "error", "ï¿½Þ¸ï¿½Ê§ï¿½ï¿½");
 	}
 
 }

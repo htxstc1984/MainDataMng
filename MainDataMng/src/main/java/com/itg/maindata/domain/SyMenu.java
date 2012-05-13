@@ -1,6 +1,8 @@
 package com.itg.maindata.domain;
 
 import java.io.Serializable;
+import java.util.UUID;
+
 import javax.persistence.*;
 
 
@@ -12,21 +14,17 @@ import javax.persistence.*;
 @Table(name="sy_menu")
 public class SyMenu implements Serializable {
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	@Column(name="pk_menu")
-	private String pkMenu;
-
+	private String pkMenu = UUID.randomUUID().toString();
 	private String code;
-
 	private String name;
-
-	@Column(name="pk_parent")
 	private String pkParent;
 
     public SyMenu() {
     }
 
+
+	@Id
+	@Column(name="pk_menu")
 	public String getPkMenu() {
 		return this.pkMenu;
 	}
@@ -34,6 +32,7 @@ public class SyMenu implements Serializable {
 	public void setPkMenu(String pkMenu) {
 		this.pkMenu = pkMenu;
 	}
+
 
 	public String getCode() {
 		return this.code;
@@ -43,6 +42,7 @@ public class SyMenu implements Serializable {
 		this.code = code;
 	}
 
+
 	public String getName() {
 		return this.name;
 	}
@@ -51,6 +51,8 @@ public class SyMenu implements Serializable {
 		this.name = name;
 	}
 
+
+	@Column(name="pk_parent")
 	public String getPkParent() {
 		return this.pkParent;
 	}

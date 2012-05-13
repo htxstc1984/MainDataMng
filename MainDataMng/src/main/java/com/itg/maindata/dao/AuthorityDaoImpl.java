@@ -3,13 +3,14 @@ package com.itg.maindata.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
 
 import com.itg.maindata.domain.SyAuthority;
 
 public class AuthorityDaoImpl implements AuthorityDao {
 
-	@PersistenceUnit
+	@PersistenceContext
 	private EntityManager em;
 
 	@Override

@@ -5,26 +5,25 @@ import java.util.UUID;
 
 import javax.persistence.*;
 
+
 /**
  * The persistent class for the sy_authority database table.
  * 
  */
 @Entity
-@Table(name = "sy_authority")
+@Table(name="sy_authority")
 public class SyAuthority implements Serializable {
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	@Column(name = "pk_authority", columnDefinition = "uniqueidentifier")
-	private String pkAuthority = UUID.randomUUID().toString();;
-
+	private String pkAuthority = UUID.randomUUID().toString();
 	private String bz;
-
 	private String name;
 
-	public SyAuthority() {
-	}
+    public SyAuthority() {
+    }
 
+
+	@Id
+	@Column(name="pk_authority")
 	public String getPkAuthority() {
 		return this.pkAuthority;
 	}
@@ -33,6 +32,7 @@ public class SyAuthority implements Serializable {
 		this.pkAuthority = pkAuthority;
 	}
 
+
 	public String getBz() {
 		return this.bz;
 	}
@@ -40,6 +40,7 @@ public class SyAuthority implements Serializable {
 	public void setBz(String bz) {
 		this.bz = bz;
 	}
+
 
 	public String getName() {
 		return this.name;

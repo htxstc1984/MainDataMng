@@ -12,20 +12,16 @@ import javax.persistence.*;
 @Table(name="r_auth_menu")
 public class RAuthMenu implements Serializable {
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	@Column(name="pk_r_auth_menu")
 	private String pkRAuthMenu;
-
-	@Column(name="pk_authority")
 	private String pkAuthority;
-
-	@Column(name="pk_menu")
 	private String pkMenu;
 
     public RAuthMenu() {
     }
 
+
+	@Id
+	@Column(name="pk_r_auth_menu")
 	public String getPkRAuthMenu() {
 		return this.pkRAuthMenu;
 	}
@@ -34,6 +30,8 @@ public class RAuthMenu implements Serializable {
 		this.pkRAuthMenu = pkRAuthMenu;
 	}
 
+
+	@Column(name="pk_authority")
 	public String getPkAuthority() {
 		return this.pkAuthority;
 	}
@@ -42,6 +40,8 @@ public class RAuthMenu implements Serializable {
 		this.pkAuthority = pkAuthority;
 	}
 
+
+	@Column(name="pk_menu")
 	public String getPkMenu() {
 		return this.pkMenu;
 	}

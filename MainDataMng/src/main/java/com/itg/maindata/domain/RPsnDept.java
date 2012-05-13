@@ -12,20 +12,16 @@ import javax.persistence.*;
 @Table(name="r_psn_dept")
 public class RPsnDept implements Serializable {
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	@Column(name="pk_r_psn_dept")
 	private String pkRPsnDept;
-
-	@Column(name="pk_md_department")
 	private String pkMdDepartment;
-
-	@Column(name="pk_md_psn")
 	private String pkMdPsn;
 
     public RPsnDept() {
     }
 
+
+	@Id
+	@Column(name="pk_r_psn_dept")
 	public String getPkRPsnDept() {
 		return this.pkRPsnDept;
 	}
@@ -34,6 +30,8 @@ public class RPsnDept implements Serializable {
 		this.pkRPsnDept = pkRPsnDept;
 	}
 
+
+	@Column(name="pk_md_department")
 	public String getPkMdDepartment() {
 		return this.pkMdDepartment;
 	}
@@ -42,6 +40,8 @@ public class RPsnDept implements Serializable {
 		this.pkMdDepartment = pkMdDepartment;
 	}
 
+
+	@Column(name="pk_md_psn")
 	public String getPkMdPsn() {
 		return this.pkMdPsn;
 	}

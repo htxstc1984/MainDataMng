@@ -16,4 +16,8 @@ public interface UserDao {
 	public List<SyUser> getUsers(String sWhere);
 
 	public boolean findRUserAuth(String pk_user, String pk_auth);
+
+	public void removeAuths(String pk_user);
+
+	public void createAuths(String pk_user, String pk_auths);
 }
