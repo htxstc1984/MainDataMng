@@ -7,6 +7,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
 
 import com.itg.maindata.domain.SyAuthority;
+import com.itg.maindata.domain.SyMenu;
 
 public class AuthorityDaoImpl implements AuthorityDao {
 
@@ -44,4 +45,23 @@ public class AuthorityDaoImpl implements AuthorityDao {
 				SyAuthority.class).getResultList();
 	}
 
+	@Override
+	public List<SyMenu> getMenus(String pk_auths) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<SyMenu> getAllMenus() {
+		// TODO Auto-generated method stub
+
+		// List<SyMenu> rootMenus = em.createQuery(
+		// "select e from SyMenu e where pkParent is null", SyMenu.class)
+		// .getResultList();
+
+		
+
+		return em.createQuery("select e from SyMenu e where 1=1 order by level",
+				SyMenu.class).getResultList();
+	}
 }

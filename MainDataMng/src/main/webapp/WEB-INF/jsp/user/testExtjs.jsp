@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="./css/ext-all.css" type="text/css" />
 <script type="text/javascript" src="./js/ext-base-debug.js"></script>
 <script type="text/javascript" src="./js/ext-all-debug.js"></script>
+<script type="text/javascript" src="./js/localJS.js"></script>
 <script type="text/javascript">
 	if ((typeof Range !== "undefined")
 			&& !Range.prototype.createContextualFragment) {
@@ -68,30 +69,58 @@
 
 			]
 		});
-		
-		var tree = new Ext.tree.TreePanel({
-		    //renderTo: 'tree-div',
-		    region : 'center',
-		    useArrows: true,
-		    autoScroll: true,
-		    animate: true,
-		    enableDD: true,
-		    containerScroll: true,
-		    border: false,
-		    // auto create TreeLoader
-		    dataUrl: 'get-nodes.php',
 
-		    root: {
-		        nodeType: 'async',
-		        text: 'Ext JS',
-		        draggable: false,
-		        id: 'source'
-		    }
+		var menuXML;
+		var menuJson;
+		Ext.Ajax
+				.request({
+					url : './getAllMenus.html',
+					headers : {
+						'userHeader' : 'userMsg'
+					},
+					params : {
+						a : 10,
+						b : 20
+					},
+					method : 'POST',
+					success : function(response, options) {
+						//Ext.MessageBox.alert('成功', '从服务端获取结果: '
+						//		+ response.responseText);
+						menuXML = loadXML(response.responseText);
+						menuJson = xmlToJson(menuXML);
+						debugger;
+						alert(menuXML.xml);
+						alert(menuJson);
+						tree.root = menuJson;
+					},
+					failure : function(response, options) {
+						Ext.MessageBox.alert('失败', '请求超时或网络故障,错误编号：'
+								+ response.status);
+					}
+				});
+
+		var tree = new Ext.tree.TreePanel({
+			//renderTo: 'tree-div',
+			region : 'center',
+			useArrows : true,
+			autoScroll : true,
+			animate : true,
+			enableDD : true,
+			containerScroll : true,
+			border : false,
+			// auto create TreeLoader
+			dataUrl : 'get-nodes.php',
+			//root : menuJson
+			root : {
+				nodeType : 'async',
+				text : 'Ext JS',
+				draggable : false,
+				id : 'source'
+			}
 		});
 
 		tree.getRootNode().expand();
 
-		
 		//定义一个Panel  
 		var nav = new Ext.Panel({
 			title : 'Navigation',

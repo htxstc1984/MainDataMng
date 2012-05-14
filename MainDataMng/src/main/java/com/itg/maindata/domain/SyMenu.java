@@ -5,26 +5,26 @@ import java.util.UUID;
 
 import javax.persistence.*;
 
-
 /**
  * The persistent class for the sy_menu database table.
  * 
  */
 @Entity
-@Table(name="sy_menu")
+@Table(name = "sy_menu")
 public class SyMenu implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String pkMenu = UUID.randomUUID().toString();
 	private String code;
 	private String name;
 	private String pkParent;
+	private String url;
+	private int isfolder;
 
-    public SyMenu() {
-    }
-
+	public SyMenu() {
+	}
 
 	@Id
-	@Column(name="pk_menu")
+	@Column(name = "pk_menu")
 	public String getPkMenu() {
 		return this.pkMenu;
 	}
@@ -32,7 +32,6 @@ public class SyMenu implements Serializable {
 	public void setPkMenu(String pkMenu) {
 		this.pkMenu = pkMenu;
 	}
-
 
 	public String getCode() {
 		return this.code;
@@ -42,7 +41,6 @@ public class SyMenu implements Serializable {
 		this.code = code;
 	}
 
-
 	public String getName() {
 		return this.name;
 	}
@@ -51,14 +49,29 @@ public class SyMenu implements Serializable {
 		this.name = name;
 	}
 
-
-	@Column(name="pk_parent")
+	@Column(name = "pk_parent")
 	public String getPkParent() {
 		return this.pkParent;
 	}
 
 	public void setPkParent(String pkParent) {
 		this.pkParent = pkParent;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public int getIsfolder() {
+		return isfolder;
+	}
+
+	public void setIsfolder(int isfolder) {
+		this.isfolder = isfolder;
 	}
 
 }

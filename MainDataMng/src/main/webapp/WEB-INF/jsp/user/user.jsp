@@ -8,19 +8,21 @@
 <title>Insert title here</title>
 <head>
 <title>宝宝淘论坛登录</title>
-    <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
 %>
 
-    <base href="<%=basePath%>">
+<base href="<%=basePath%>">
 <!--
 <link rel="stylesheet" href="http://localhost:8080/MainDataMng/css/ext-all.css" type="text/css"/>
 <script type="text/javascript" src="http://localhost:8080/MainDataMng/js/ext-base.js"></script>
 <script type="text/javascript" src="http://localhost:8080/MainDataMng/js/ext-all.js"></script>
 -->
 
-<link rel="stylesheet" href="./css/ext-all.css" type="text/css"/>
+<link rel="stylesheet" href="./css/ext-all.css" type="text/css" />
 <script type="text/javascript" src="./js/ext-base.js"></script>
 <script type="text/javascript" src="./js/ext-all.js"></script>
 
@@ -56,8 +58,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<font color="red"><c:out value="${error}" /></font>
 	</c:if>
 
-	<form action="<c:url value="../updateUser.html"/>"
-		onsubmit="mysubmit()" method="post">
+	<form action="<c:url value="./updateUser.html"/>" onsubmit="mysubmit()"
+		method="post">
 		用户名： <input type="text" name="userid" value="${user.userid}">
 		<br> 密 码： <input type="password" name="password"
 			value="${user.password}"> <br> 姓名： <input type="text"

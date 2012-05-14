@@ -2,7 +2,8 @@ package com.itg.maindata.dao;
 
 import java.util.List;
 
-import com.itg.maindata.domain.SyAuthority;;
+import com.itg.maindata.domain.SyAuthority;
+import com.itg.maindata.domain.SyMenu;
 
 public interface AuthorityDao {
 	
@@ -15,4 +16,8 @@ public interface AuthorityDao {
 	public void updateAuth(SyAuthority auth);
 
 	public List<SyAuthority> getAuths(String sWhere);
+	
+	public List<SyMenu> getMenus(String pk_auths);
+	
+	public List<SyMenu> getAllMenus();
 }

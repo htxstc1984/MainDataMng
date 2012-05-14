@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Built-By: huangtx
-Build-Jdk: 1.6.0_29
+Built-By: huangtx@itg.net
+Build-Jdk: 1.6.0_10-rc2
 Created-By: Maven Integration for Eclipse
 

@@ -1,20 +1,25 @@
 package com.itg.maindata.web;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.dom4j.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.itg.maindata.dao.AuthorityDao;
 import com.itg.maindata.domain.SyAuthority;
 import com.itg.maindata.domain.SyUser;
 import com.itg.maindata.service.UserService;
+import com.itg.maindata.service.Util;
 import com.itg.maindata.web.vo.RUserAuthUI;
 
 @Controller
@@ -30,7 +35,7 @@ public class UserController {
 	public String testExtjs() {
 		return "user/testExtjs";
 	}
-	
+
 	@RequestMapping(value = "/addUser.html")
 	public String addUser() {
 		return "user/userAdd";
@@ -44,7 +49,7 @@ public class UserController {
 			mav.addObject("user", user);
 			return mav;
 		}
-		return new ModelAndView("user/userAdd", "error", "���ʧ��");
+		return new ModelAndView("user/userAdd", "error", "");
 	}
 
 	@RequestMapping(value = "/getUsers.html")
@@ -58,7 +63,7 @@ public class UserController {
 			return mav;
 		}
 		ModelAndView msgmav = new ModelAndView("user/message");
-		msgmav.addObject("message", "û�ҵ��û�");
+		msgmav.addObject("message", "没有用户");
 		return msgmav;
 	}
 
@@ -98,7 +103,23 @@ public class UserController {
 			// mav.addObject("user", user);
 			return mav;
 		}
-		return new ModelAndView("user/user", "error", "�޸�ʧ��");
+		return new ModelAndView("user/user", "error", "修改失败");
+	}
+
+	@RequestMapping(value = "/getAllMenus.html")
+	@ResponseBody
+	public void getMenus(HttpServletRequest req, HttpServletResponse res)
+			throws Exception {
+		Util util = new Util();
+
+		res.setContentType("text/xml; charset=UTF-8");
+
+		Document xml = util.transMenuToXml(authorityDao.getAllMenus());
+		PrintWriter out = res.getWriter();
+		
+
+		out.println(xml.asXML());
+		// return authorityDao.getAllMenus();
 	}
 
 }

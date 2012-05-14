@@ -11,37 +11,46 @@
 <script type="text/javascript" src="./js/ext-all-debug.js"></script>
 <script type="text/javascript">
 	var dataArr = new Array();
-
+	
 	<c:forEach var="user" items="${users}">dataArr[dataArr.length] = [
 			"${user.pkUser}", "${user.userid}", "${user.username}" ]
 	</c:forEach>;
+	Ext.onReady(function() {
 
-	var cm = new Ext.grid.ColumnModel([ {
-		header : 'pk',
-		dataIndex : 'id'
-	}, {
-		header : 'userid',
-		dataIndex : 'userid'
-	}, {
-		header : 'username',
-		dataIndex : 'username'
-	}, ]);
-	cm.defaultSortable = true;
+		var cm = new Ext.grid.ColumnModel([ {
+			header : "id",
+			dataIndex : "id"
+		}, {
+			header : "userid",
+			dataIndex : "userid"
+		}, {
+			header : "username",
+			dataIndex : "username"
+		}, ]);
+		cm.defaultSortable = true;
 
-	var ds = new Ext.data.Store({
-		proxy : new Ext.data.MemoryProxy(dataArr),
-		reader : new Ext.data.ArrayReader({}, [ {
-			name : 'id',
-			mapping : 0
-		}, {
-			name : 'userid',
-			mapping : 1
-		}, {
-			name : 'username',
-			mapping : 2
-		}, ])
+		var ds = new Ext.data.Store({
+			proxy : new Ext.data.MemoryProxy(dataArr),
+			reader : new Ext.data.ArrayReader({}, [ {
+				name : "id",
+				mapping : 0
+			}, {
+				name : "userid",
+				mapping : 1
+			}, {
+				name : "username",
+				mapping : 2
+			}, ])
+		});
+		ds.load();
+		var grid = new Ext.grid.GridPanel({
+			el : "grid",
+			ds : ds,
+			cm : cm,
+			height : 800
+		});
+		grid.render();
 	});
-	ds.load();
 </script>
 </head>
 <body>
@@ -63,14 +72,6 @@
 		</c:forEach>
 	</table>
 	<div id="grid" style="heigth: 600"></div>
-	<script type="text/javascript">
-		var grid = new Ext.grid.GridPanel({
-			el : 'grid',
-			ds : ds,
-			cm : cm,
-			height : 800
-		});
-		grid.render();
-	</script>
+
 </body>
 </html>
