@@ -45,8 +45,12 @@ public class UserController {
 	public ModelAndView addCommand(SyUser user) {
 		boolean falg = userService.addUser(user);
 		if (falg) {
-			ModelAndView mav = new ModelAndView("user/success");
-			mav.addObject("user", user);
+			ModelAndView mav = getAllUser();
+			
+			
+			
+			
+			// mav.addObject("user", user);
 			return mav;
 		}
 		return new ModelAndView("user/userAdd", "error", "");

@@ -204,30 +204,33 @@ function buildMainFrame(menuXml) {
 		// this.render();
 		// this.getRootNode().expand();
 	});
-	menuTree.on('click', function(node, event) {
-		// alert(node.id);
-		if (node.hasChildNodes()) {
-			return;
-		}
-		if (tabs.getItem("tab" + node.id)) {
-			return;
-		}
-		var newTab = tabs.add({
-			title : node.text,
-			html : "这是一个可以关闭的Tab",
-			id : "tab" + node.id,
-			closable : true
-		});
+	menuTree
+			.on(
+					'click',
+					function(node, event) {
+						// alert(node.id);
+						if (node.hasChildNodes()) {
+							return;
+						}
+						if (tabs.getItem("tab" + node.id)) {
+							return;
+						}
+						var newTab = tabs.add({
+							title : node.text,
+							html : "这是一个可以关闭的Tab",
+							id : "tab" + node.id,
+							closable : true
+						});
 
-		if (node.url) {
-			newTab.html = "<IFRAME ID='iframe1' HEIGHT=600 WIDTH=800 FRAMEBORDER=0 SCROLLING=auto SRC='"
-					+ node.url + "'></IFRAME>";
-		}
+						if (node.url) {
+							newTab.html = "<IFRAME ID='iframe1' HEIGHT=600 WIDTH=800 FRAMEBORDER=0 SCROLLING=auto onload='IframeReSizeWidth(this.id)' SRC='"
+									+ node.url + "'></IFRAME>";
+						}
 
-		tabs.setActiveTab(newTab);
-		// IframeReSizeHeight("iframe1");
-		// IframeReSizeWidth("iframe1");
-	});
+						tabs.setActiveTab(newTab);
+						// IframeReSizeHeight("iframe1");
+						// IframeReSizeWidth("iframe1");
+					});
 
 	// 定义一个Panel
 	nav = new Ext.Panel({
@@ -248,36 +251,35 @@ function buildMainFrame(menuXml) {
 	});
 }
 
-// iframe高度自适应
+
 function IframeReSizeHeight(iframename) {
+	
    　var pTar = document.getElementById(iframename);
    　if (pTar) {
-              // iframe的contentDocument 在firefox下为object IE为undefined
-              // iframe的Document 在firefox下为undefined IE为object
-
               var h;
       　    if (pTar.contentDocument&&pTar.contentDocument.body.scrollHeight) {
                        h=pTar.contentDocument.body.scrollHeight;
-                       // 取得IE下中iframe的Document
       　　}else if (pTar.Document&&pTar.Document.body.scrollHeight) {
       　             h = pTar.Document.body.scrollHeight;
              }
        　  pTar.height=h;
    　}
 }
-// iframe宽度自适应
+
 function IframeReSizeWidth(iframename) {
+
    　　var pTar = document.getElementById(iframename);
-   　　if (pTar) {  
-                   // firefox
+   　　if (pTar) {
                   var w;
       　    　if (pTar.contentDocument&&pTar.contentDocument.body.scrollWidth) {  
                         w=pTar.contentDocument.body.scrollWidth;
-                       // IE
+
       　　}else if (pTar.Document&&pTar.Document.body.scrollWidth) {  
                        w = pTar.Document.body.scrollWidth; 
+
       　　}
       　   pTar.width=w;
+      　  
    　}
 }
 
