@@ -22,9 +22,9 @@
 <script type="text/javascript" src="http://localhost:8080/MainDataMng/js/ext-all.js"></script>
 -->
 
-<link rel="stylesheet" href="./css/ext-all.css" type="text/css" />
-<script type="text/javascript" src="./js/ext-base.js"></script>
-<script type="text/javascript" src="./js/ext-all.js"></script>
+<link rel="stylesheet" href="./extjs3.4/css/ext-all.css" type="text/css" />
+<script type="text/javascript" src="./extjs3.4/adapter/ext/ext-base-debug.js"></script>
+<script type="text/javascript" src="./extjs3.4/ext-all-debug.js"></script>
 
 <script type="text/javascript">
 	Ext.onReady(function() {

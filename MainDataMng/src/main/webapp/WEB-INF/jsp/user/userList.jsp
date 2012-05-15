@@ -6,55 +6,113 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="./css/ext-all.css" type="text/css" />
-<script type="text/javascript" src="./js/ext-base-debug.js"></script>
-<script type="text/javascript" src="./js/ext-all-debug.js"></script>
+<link rel="stylesheet" href="./extjs3.4/resources/css/ext-all.css"
+	type="text/css" />
+<script type="text/javascript"
+	src="./extjs3.4/adapter/ext/ext-base-debug.js"></script>
+<script type="text/javascript" src="./extjs3.4/ext-all-debug.js"></script>
+<script type="text/javascript" src="./js/localJS.js"></script>
 <script type="text/javascript">
-	var dataArr = new Array();
-	
-	<c:forEach var="user" items="${users}">dataArr[dataArr.length] = [
-			"${user.pkUser}", "${user.userid}", "${user.username}" ]
-	</c:forEach>;
+	var users;
 	Ext.onReady(function() {
+		getDataByAjax('./getUserList2.html', {}, function afterLoad(response,
+				options) {
+			eval("users={users:" + response.responseText + "}");
+			//alert(users);
+			buildUserList(users);
+		});
 
-		var cm = new Ext.grid.ColumnModel([ {
-			header : "id",
-			dataIndex : "id"
-		}, {
-			header : "userid",
-			dataIndex : "userid"
+	});
+
+	function buildExample() {
+		var data = [ [ 1, 'EasyJWeb', 'EasyJF', 'www.easyjf.com' ],
+				[ 2, 'jfox', 'huihoo', 'www.huihoo.org' ],
+				[ 3, 'jdon', 'jdon', 'www.jdon.com' ],
+				[ 4, 'springside', 'springside', 'www.springside.org.cn' ] ];
+
+		var store = new Ext.data.SimpleStore({
+			data : data,
+			fields : [ "id", "name", "organization", "homepage" ]
+		});
+
+		var grid = new Ext.grid.GridPanel({
+			renderTo : "grid",
+			title : "中国Java开源产品及团队",
+			height : 150,
+			width : 600,
+			columns : [ {
+				header : "项目名称",
+				dataIndex : "name"
+			}, {
+				header : "开发团队",
+				dataIndex : "organization"
+			}, {
+				header : "网址",
+				dataIndex : "homepage"
+			} ],
+			store : store,
+			autoExpandColumn : 2
+		});
+	}
+
+	function buildUserList(users) {
+		var store = new Ext.data.JsonStore({
+			data : users,
+			root : 'users',
+			fields : [ 'pkUser', 'username', 'userid', 'disable' ]
+		});
+		//store.load();
+		//alert(1);
+		var colModel = new Ext.grid.ColumnModel([ {
+			header : "pkUser",
+			width : 60,
+			sortable : true
 		}, {
 			header : "username",
-			dataIndex : "username"
-		}, ]);
-		cm.defaultSortable = true;
-
-		var ds = new Ext.data.Store({
-			proxy : new Ext.data.MemoryProxy(dataArr),
-			reader : new Ext.data.ArrayReader({}, [ {
-				name : "id",
-				mapping : 0
-			}, {
-				name : "userid",
-				mapping : 1
-			}, {
-				name : "username",
-				mapping : 2
-			}, ])
-		});
-		ds.load();
+			width : 150,
+			sortable : true
+		}, {
+			header : "userid",
+			width : 100,
+			sortable : true
+		}, {
+			header : "disable",
+			width : 100,
+			sortable : true,
+		} ]);
 		var grid = new Ext.grid.GridPanel({
-			el : "grid",
-			ds : ds,
-			cm : cm,
-			height : 800
+			store : store,
+			cm : colModel,
+			region : 'center',
+			//renderTo : 'grid',
+			width : 600,
+			height : 300,
+			frame : true,
+			tbar : [ {
+				text : "添加",
+				handler : this.showAdd,
+				scope : this
+			}, "-", {
+				text : "修改"
+			}, "-", {
+				text : "删除",
+				//handler : this.deleteBranch,
+				scope : this
+			} ],
+
+			title : 'Framed with Checkbox Selection and Horizontal Scrolling',
+			iconCls : 'icon-grid'
 		});
-		grid.render();
-	});
+
+		var dataView = new Ext.Viewport({
+			layout : 'border',
+			items : [ grid ]
+		});
+	}
 </script>
 </head>
 <body>
-
+	<!--  
 	<table>
 		<tr>
 			<td>主键</td>
@@ -71,6 +129,7 @@
 			</tr>
 		</c:forEach>
 	</table>
+-->
 	<div id="grid" style="heigth: 600"></div>
 
 </body>

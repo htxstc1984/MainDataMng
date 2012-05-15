@@ -116,10 +116,14 @@ public class UserController {
 
 		Document xml = util.transMenuToXml(authorityDao.getAllMenus());
 		PrintWriter out = res.getWriter();
-		
 
 		out.println(xml.asXML());
 		// return authorityDao.getAllMenus();
 	}
 
+	@RequestMapping(value = "/getUserList2.html")
+	@ResponseBody
+	public Object getUserList() {
+		return userService.getUsers("1=1");
+	}
 }

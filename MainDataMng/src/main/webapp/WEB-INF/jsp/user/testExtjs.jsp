@@ -3,11 +3,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="./css/ext-all.css" type="text/css" />
-<script type="text/javascript" src="./js/ext-base-debug.js"></script>
-<script type="text/javascript" src="./js/ext-all-debug.js"></script>
+<link rel="stylesheet" href="./extjs3.4/resources/css/ext-all.css" type="text/css" />
+<script type="text/javascript" src="./extjs3.4/adapter/ext/ext-base-debug.js"></script>
+<script type="text/javascript" src="./extjs3.4/ext-all-debug.js"></script>
 <script type="text/javascript" src="./js/localJS.js"></script>
 <script type="text/javascript">
 	if ((typeof Range !== "undefined")
@@ -20,126 +21,18 @@
 			return frag;
 		};
 	}
+	var menuXML;
+	var menuJson;
+
 	Ext.onReady(function() {
 		//创建TabPanel  
-		var tabs = new Ext.TabPanel({
-			region : 'center', //border布局，将页面分成东，南，西，北，中五部分，这里表示TabPanel放在中间  
-			margins : '3 3 3 0',
-			activeTab : 0,
-			defaults : {
-				autoScroll : true
-			},
-			items : [ {
-				title : 'Bogus Tab',
-				html : "第一个Tab的内容."
-			}, {
-				title : 'Another Tab',
-				html : "我是另一个Tab"
-			}, {
-				title : 'Closable Tab',
-				html : "这是一个可以关闭的Tab",
-				closable : true
-			} ]
+		getDataByAjax('./getAllMenus.html', {}, function afterLoad(response,
+				options) {
+			buildMainFrame(response.responseText);
 		});
-
-		var accordion = new Ext.Panel({
-			layout : 'accordion',
-			//title : '折叠布局',
-			region : 'center',
-			split : true,
-			width : 350,
-			floating : true,
-			frame : true,
-			collapsible : true,
-			titleCollapse : true,
-			layoutConfig : {
-				activeOnTop : false,
-				fill : true,
-				hideCollapseTool : false,
-				titleCollapse : true,
-				animate : true
-			},
-			items : [ {
-				title : "面板一",
-				html : "面板一内容"
-			}, {
-				title : '面板二',
-				html : '面板二内容'
-			}
-
-			]
-		});
-
-		var menuXML;
-		var menuJson;
-		Ext.Ajax
-				.request({
-					url : './getAllMenus.html',
-					headers : {
-						'userHeader' : 'userMsg'
-					},
-					params : {
-						a : 10,
-						b : 20
-					},
-					method : 'POST',
-					success : function(response, options) {
-						//Ext.MessageBox.alert('成功', '从服务端获取结果: '
-						//		+ response.responseText);
-						menuXML = loadXML(response.responseText);
-						menuJson = xmlToJson(menuXML);
-						debugger;
-						alert(menuXML.xml);
-						alert(menuJson);
-						tree.root = menuJson;
-					},
-					failure : function(response, options) {
-						Ext.MessageBox.alert('失败', '请求超时或网络故障,错误编号：'
-								+ response.status);
-					}
-				});
-
-		var tree = new Ext.tree.TreePanel({
-			//renderTo: 'tree-div',
-			region : 'center',
-			useArrows : true,
-			autoScroll : true,
-			animate : true,
-			enableDD : true,
-			containerScroll : true,
-			border : false,
-			// auto create TreeLoader
-			dataUrl : 'get-nodes.php',
-			//root : menuJson
-			root : {
-				nodeType : 'async',
-				text : 'Ext JS',
-				draggable : false,
-				id : 'source'
-			}
-		});
-
-		tree.getRootNode().expand();
-
-		//定义一个Panel  
-		var nav = new Ext.Panel({
-			title : 'Navigation',
-			layout : 'border',
-			region : 'west', //放在西边，即左侧  
-			split : true,
-			width : 200,
-			collapsible : true, //允许伸缩  
-			margins : '3 0 3 3',
-			cmargins : '3 3 3 3',
-			items : [ tree ]
-		});
-
-		var view = new Ext.Viewport({
-			layout : 'border',
-			items : [ nav, tabs ]
-		});
-
 	});
+
+	
 </script>
 </head>
 <body>
