@@ -69,16 +69,15 @@ public class UserDaoImpl implements UserDao {
 	public void createAuths(String pk_user, String pk_auths) {
 		// TODO Auto-generated method stub
 		String[] auths = pk_auths.split(";");
-		// String inWhere = "";
 		for (String auth : auths) {
-			// inWhere = inWhere + "'" + auth + "',";
+			if (auth.trim().equalsIgnoreCase("")) {
+				continue;
+			}
 			RUserAuth rua = new RUserAuth();
 			rua.setPkUser(pk_user);
 			rua.setPkAuthority(auth);
 			em.persist(rua);
 		}
-		// if (!inWhere.equalsIgnoreCase("")) {
-		// inWhere = inWhere.substring(0, inWhere.length() - 1);
-		// }
+
 	}
 }

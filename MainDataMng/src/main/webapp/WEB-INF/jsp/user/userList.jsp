@@ -13,62 +13,46 @@
 <script type="text/javascript" src="./extjs3.4/ext-all-debug.js"></script>
 <script type="text/javascript" src="./js/localJS.js"></script>
 <script type="text/javascript" src="./js/uiFn.js"></script>
-<script type="text/javascript">
-	var users;
-	var win;
 
-	Ext.onReady(function() {
-		getDataByAjax('./getUserList2.html', {}, function afterLoad(response,
-				options) {
-			eval("users={users:" + response.responseText + "}");
-			//alert(users);
-			buildUserList(users);
-		});
+</head>
+<body>
+	<script type="text/javascript">
+		Ext.onReady(function() {
+			var grid;
+			var store = new Ext.data.JsonStore({
+				url : './getUserList2.html',
+				root : 'users',
+				autoLoad : true,
+				fields : [ 'pkUser', 'username', 'userid', 'disable' ]
+			});
 
-	});
+			var colModel = new Ext.grid.ColumnModel([ {
+				header : "pkUser",
+				dataIndex : 'pkUser',
+				width : 60,
+				sortable : true
+			}, {
+				header : "username",
+				dataIndex : 'username',
+				width : 150,
+				sortable : true
+			}, {
+				header : "userid",
+				dataIndex : 'userid',
+				width : 100,
+				sortable : true
+			}, {
+				header : "disable",
+				dataIndex : 'disable',
+				width : 100,
+				sortable : true,
+			} ]);
 
-	function buildUserList(users) {
-		var store = new Ext.data.JsonStore({
-			data : users,
-			root : 'users',
-			fields : [ 'pkUser', 'username', 'userid', 'disable' ]
-		});
-		//store.load();
-		//alert(1);
-		var colModel = new Ext.grid.ColumnModel([ {
-			header : "pkUser",
-			width : 60,
-			sortable : true
-		}, {
-			header : "username",
-			width : 150,
-			sortable : true
-		}, {
-			header : "userid",
-			width : 100,
-			sortable : true
-		}, {
-			header : "disable",
-			width : 100,
-			sortable : true,
-		} ]);
-		var grid = new Ext.grid.GridPanel({
-			store : store,
-			cm : colModel,
-			sm : new Ext.grid.RowSelectionModel({
-				singleSelect : true
-			}),
-			region : 'center',
-			//renderTo : 'grid',
-			width : 600,
-			height : 300,
-			frame : true,
-			tbar : [
+			var tbar = [
 					{
 						text : "添加",
 						handler : function() {
-							this.location = "./addUser.html";
-							//this.getFormWin(win, "添加", "./addCommand.html", formItems) ;
+							this.location = "./getUser/newins.html";
 						},
 						scope : this
 					},
@@ -77,50 +61,49 @@
 						text : "修改",
 						handler : function() {
 							var row = grid.getSelectionModel().getSelected();
-
 							if (row) {
 								this.location = "./getUser/"
 										+ row.get("pkUser") + ".html";
 							}
-							//this.getFormWin(win, "修改", "./updateUser.html", formItems) ;
 						},
 						scope : this
 					}, "-", {
 						text : "删除",
 						//handler : this.deleteBranch,
 						scope : this
-					} ],
+					} ];
+			grid = buildList(store, colModel, tbar);
 
-			title : 'Framed with Checkbox Selection and Horizontal Scrolling',
-			iconCls : 'icon-grid'
 		});
+		
+		
+		function buildList(store, colModel, tbar) {
+			var store = store;
+			var colModel = colModel;
+			var grid = new Ext.grid.GridPanel({
+				store : store,
+				cm : colModel,
+				sm : new Ext.grid.RowSelectionModel({
+					singleSelect : true
+				}),
+				region : 'center',
+				// renderTo : 'grid',
+				width : 600,
+				height : 300,
+				frame : true,
+				tbar : tbar,
+				// title : 'Framed with Checkbox Selection and Horizontal Scrolling',
+				iconCls : 'icon-grid'
+			});
 
-		var dataView = new Ext.Viewport({
-			layout : 'border',
-			items : [ grid ]
-		});
-	}
-</script>
-</head>
-<body>
-	<!--  
-	<table>
-		<tr>
-			<td>主键</td>
-			<td>用户名</td>
-			<td>姓名</td>
-		</tr>
-		<c:forEach var="user" items="${users}">
-			<tr>
-				<td><c:out value="${user.pkUser}" /></td>
-				<td><c:out value="${user.userid}" /></td>
-				<td><c:out value="${user.username}" /></td>
-				<td><a
-					href="${pageContext.request.contextPath}/getUser/${user.pkUser}.html">编辑</a></td>
-			</tr>
-		</c:forEach>
-	</table>
--->
+			var dataView = new Ext.Viewport({
+				layout : 'border',
+				items : [ grid ]
+			});
+
+			return grid;
+		}
+	</script>
 	<div id="grid" style="heigth: 600"></div>
 
 </body>

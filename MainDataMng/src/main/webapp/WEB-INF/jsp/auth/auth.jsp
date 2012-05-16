@@ -198,46 +198,7 @@
 </script>
 </head>
 <body>
-	<!-- 
-	<c:if test="${!empty error}">
-		<font color="red"><c:out value="${error}" /></font>
-	</c:if>
 
-	<form action="<c:url value="./updateUser.html"/>" onsubmit="mysubmit()"
-		method="post">
-		用户名： <input type="text" name="userid" value="${user.userid}">
-		<br> 密 码： <input type="password" name="password"
-			value="${user.password}"> <br> 姓名： <input type="text"
-			name="username" value="${user.username}"> <br> <input
-			type="hidden" name="pkUser" value="${user.pkUser}" /><br> <input
-			type="hidden" id="pkAuths" name="pkAuths" value="" /><br>
-
-		<table>
-			<tr>
-				<td>选择</td>
-				<td>权限</td>
-				<td>说明</td>
-			</tr>
-			<c:forEach var="auth" items="${auths}">
-				<tr id="authobj">
-					<td><input type="checkbox" name="chk"
-						<c:if test="${auth.haveAuth==true}">checked="checked"</c:if>
-						value="${auth.haveAuth}"><input type="hidden"
-						id="pkAuthority" name="pkAuthority"
-						value="${auth.syAuthority.pkAuthority}" /></td>
-					<td><c:out value="${auth.syAuthority.name}" /></td>
-					<td><c:out value="${auth.syAuthority.bz}" /></td>
-				</tr>
-			</c:forEach>
-		</table>
-
-
-		<input type="submit" value="修改" /> <input type="reset" value="重置" />
-	</form>
-	<div id="form11"></div>
-	 -->
 </body>
-
-
 
 </html>

@@ -4,14 +4,14 @@ import java.io.Serializable;
 
 import com.itg.maindata.domain.SyAuthority;
 
-public class RUserAuthUI implements Serializable {
+public class RUserAuthUI extends SyAuthority implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private SyAuthority syAuthority;
+	//private SyAuthority syAuthority;
 
 	private boolean haveAuth;
 
@@ -19,13 +19,6 @@ public class RUserAuthUI implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public SyAuthority getSyAuthority() {
-		return syAuthority;
-	}
-
-	public void setSyAuthority(SyAuthority syAuthority) {
-		this.syAuthority = syAuthority;
-	}
 
 	public boolean isHaveAuth() {
 		return haveAuth;

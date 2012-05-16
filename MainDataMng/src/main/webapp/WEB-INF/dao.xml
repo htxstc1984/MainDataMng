@@ -11,13 +11,16 @@
        http://www.springframework.org/schema/tx/spring-tx-3.0.xsd  
        http://www.springframework.org/schema/aop  
        http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
-	
-	<context:component-scan base-package="com.itg.maindata.dao"/>
-    <context:component-scan base-package="com.itg.maindata.service"/>
-    
+
+	<context:component-scan base-package="com.itg.maindata.dao" />
+	<context:component-scan base-package="com.itg.maindata.service" />
+
 	<bean id="userDao" class="com.itg.maindata.dao.UserDaoImpl" />
-	<bean id="authDao" class="com.itg.maindata.dao.AuthorityDaoImpl"/>
+	<bean id="authDao" class="com.itg.maindata.dao.AuthorityDaoImpl" />
+	<bean id="menuDao" class="com.itg.maindata.dao.MenuDaoImpl" />
 	<bean id="userService" class="com.itg.maindata.service.UserService" />
+	<bean id="authService" class="com.itg.maindata.service.AuthorityService" />
+	<bean id="menuService" class="com.itg.maindata.service.MenuService" />
 	
 </beans>
 

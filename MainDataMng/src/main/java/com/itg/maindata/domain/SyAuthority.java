@@ -17,6 +17,7 @@ public class SyAuthority implements Serializable {
 	private String pkAuthority = UUID.randomUUID().toString();
 	private String bz;
 	private String name;
+	
 
     public SyAuthority() {
     }
@@ -49,5 +50,7 @@ public class SyAuthority implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+
 
 }
