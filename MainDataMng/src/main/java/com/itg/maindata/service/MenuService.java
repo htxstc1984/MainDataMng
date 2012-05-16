@@ -57,4 +57,9 @@ public class MenuService {
 		return menuDao.getMenus(sWhere);
 
 	}
+
+	@Transactional(propagation = Propagation.REQUIRED)
+	public List<SyMenu> getAllMenus() {
+		return menuDao.getAllMenus();
+	}
 }

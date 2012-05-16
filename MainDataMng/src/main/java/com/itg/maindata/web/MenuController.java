@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itg.maindata.dao.AuthorityDao;
+import com.itg.maindata.service.AuthorityService;
+import com.itg.maindata.service.MenuService;
 import com.itg.maindata.service.UserService;
 import com.itg.maindata.service.Util;
 
@@ -21,10 +23,10 @@ public class MenuController {
 	private UserService userService;
 
 	@Autowired
-	private AuthorityDao authorityService;
+	private AuthorityService authorityService;
 
 	@Autowired
-	private AuthorityDao menuService;
+	private MenuService menuService;
 
 	@RequestMapping(value = "/getAllMenus.html")
 	@ResponseBody

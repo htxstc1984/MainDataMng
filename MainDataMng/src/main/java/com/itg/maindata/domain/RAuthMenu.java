@@ -1,27 +1,27 @@
 package com.itg.maindata.domain;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.UUID;
 
+import javax.persistence.*;
 
 /**
  * The persistent class for the r_auth_menu database table.
  * 
  */
 @Entity
-@Table(name="r_auth_menu")
+@Table(name = "r_auth_menu")
 public class RAuthMenu implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private String pkRAuthMenu;
+	private String pkRAuthMenu = UUID.randomUUID().toString();;
 	private String pkAuthority;
 	private String pkMenu;
 
-    public RAuthMenu() {
-    }
-
+	public RAuthMenu() {
+	}
 
 	@Id
-	@Column(name="pk_r_auth_menu")
+	@Column(name = "pk_r_auth_menu")
 	public String getPkRAuthMenu() {
 		return this.pkRAuthMenu;
 	}
@@ -30,8 +30,7 @@ public class RAuthMenu implements Serializable {
 		this.pkRAuthMenu = pkRAuthMenu;
 	}
 
-
-	@Column(name="pk_authority")
+	@Column(name = "pk_authority")
 	public String getPkAuthority() {
 		return this.pkAuthority;
 	}
@@ -40,8 +39,7 @@ public class RAuthMenu implements Serializable {
 		this.pkAuthority = pkAuthority;
 	}
 
-
-	@Column(name="pk_menu")
+	@Column(name = "pk_menu")
 	public String getPkMenu() {
 		return this.pkMenu;
 	}

@@ -184,12 +184,26 @@ var tabs;
 var menuTree;
 var nav;
 var view;
+var toolPanel;
 
 function buildMainFrame(menuXml) {
+	var toolsbar = new Ext.Toolbar({
+        items : [{
+                    text : "中等按钮",
+                    // iconCls : "add24Icon"
+                    handler: function(){
+                    	alert(this.location);
+                    	this.location = "./logout.html";
+                    },
+                    scope : this
+                }]
+    });
+	
 	tabs = new Ext.TabPanel({
 		region : 'center', // border布局，将页面分成东，南，西，北，中五部分，这里表示TabPanel放在中间
 		margins : '3 3 3 0',
 		activeTab : 0,
+		// tbar : toolsbar,
 		defaults : {
 			autoScroll : true
 		},
@@ -198,6 +212,19 @@ function buildMainFrame(menuXml) {
 			html : "这是一个可以关闭的Tab",
 			closable : true
 		} ]
+	});
+	
+	toolPanel = new Ext.Panel({
+		// title : 'Navigation',
+		layout : 'border',
+		region : 'north', // 放在西边，即左侧
+		split : true,
+		heigth : 50,
+		collapsible : true, // 允许伸缩
+		tbar : toolsbar,
+		margins : '3 0 3 3',
+		cmargins : '3 3 3 3',
+
 	});
 
 	menuTree = new createXmlTree(menuXml, function() {
@@ -247,7 +274,7 @@ function buildMainFrame(menuXml) {
 
 	view = new Ext.Viewport({
 		layout : 'border',
-		items : [ nav, tabs ]
+		items : [ toolPanel,nav, tabs ]
 	});
 }
 

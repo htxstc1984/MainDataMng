@@ -43,17 +43,16 @@
 		var tbar = [ {
 			text : "添加",
 			handler : function() {
-				//this.location = "./getUser/newins.html";
+				this.location = "./getAuth/newins.html";
 			},
 			scope : this
 		}, "-", {
 			text : "修改",
 			handler : function() {
-				//var row = grid.getSelectionModel().getSelected();
-				//if (row) {
-				//	this.location = "./getUser/"
-				//+row.get("pkUser") + ".html";
-				//}
+				var row = grid.getSelectionModel().getSelected();
+				if (row) {
+					this.location = "./getAuth/" + row.get("pkAuthority") + ".html";
+				}
 			},
 			scope : this
 		}, "-", {

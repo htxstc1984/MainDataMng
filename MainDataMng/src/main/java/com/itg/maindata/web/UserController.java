@@ -18,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.itg.maindata.dao.AuthorityDao;
 import com.itg.maindata.domain.SyAuthority;
 import com.itg.maindata.domain.SyUser;
+import com.itg.maindata.service.AuthorityService;
+import com.itg.maindata.service.MenuService;
 import com.itg.maindata.service.UserService;
 import com.itg.maindata.web.jsonvo.JsonRUserAuthUI;
 import com.itg.maindata.web.jsonvo.JsonUsers;
@@ -31,10 +33,10 @@ public class UserController {
 	private UserService userService;
 
 	@Autowired
-	private AuthorityDao authorityService;
+	private AuthorityService authorityService;
 
 	@Autowired
-	private AuthorityDao menuService;
+	private MenuService menuService;
 
 	@RequestMapping(value = "/test.html")
 	public String testExtjs() {
@@ -121,7 +123,6 @@ public class UserController {
 		}
 		return rs;
 	}
-
 
 	@RequestMapping(value = "/getUserList2.html")
 	@ResponseBody
