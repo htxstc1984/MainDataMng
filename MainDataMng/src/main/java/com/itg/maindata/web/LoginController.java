@@ -63,4 +63,10 @@ public class LoginController {
 		}
 		return "login";
 	}
+	
+	@RequestMapping(value = "/test41.html")
+	public String test41()
+	{
+		return "/test41";
+	}
 }

@@ -3,13 +3,15 @@ package com.itg.maindata.domain;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import com.itg.maindata.annotation.ext.FieldType;
+import com.itg.maindata.annotation.ext.Title;
 
 /**
  * The persistent class for the md_psn database table.
  * 
  */
 @Entity
-@Table(name="md_psn")
+@Table(name = "md_psn")
 public class MdPsn implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String pkMdPsn;
@@ -26,12 +28,12 @@ public class MdPsn implements Serializable {
 	private String visible;
 	private String istemp;
 
-    public MdPsn() {
-    }
-
+	public MdPsn() {
+	}
 
 	@Id
-	@Column(name="pk_md_psn")
+	@Column(name = "pk_md_psn")
+	@FieldType(value = "Ext.form.Hidden", inputType = "")
 	public String getPkMdPsn() {
 		return this.pkMdPsn;
 	}
@@ -40,7 +42,7 @@ public class MdPsn implements Serializable {
 		this.pkMdPsn = pkMdPsn;
 	}
 
-
+	@Title(value = "域账号")
 	public String getDomainacc() {
 		return this.domainacc;
 	}
@@ -48,7 +50,6 @@ public class MdPsn implements Serializable {
 	public void setDomainacc(String domainacc) {
 		this.domainacc = domainacc;
 	}
-
 
 	public String getEmail() {
 		return this.email;
@@ -58,7 +59,6 @@ public class MdPsn implements Serializable {
 		this.email = email;
 	}
 
-
 	public String getNomngflag() {
 		return this.nomngflag;
 	}
@@ -66,7 +66,6 @@ public class MdPsn implements Serializable {
 	public void setNomngflag(String nomngflag) {
 		this.nomngflag = nomngflag;
 	}
-
 
 	public String getOaacc() {
 		return this.oaacc;
@@ -76,7 +75,6 @@ public class MdPsn implements Serializable {
 		this.oaacc = oaacc;
 	}
 
-
 	public String getPcompany() {
 		return this.pcompany;
 	}
@@ -85,8 +83,7 @@ public class MdPsn implements Serializable {
 		this.pcompany = pcompany;
 	}
 
-
-	@Column(name="pk_psnbasdoc")
+	@Column(name = "pk_psnbasdoc")
 	public String getPkPsnbasdoc() {
 		return this.pkPsnbasdoc;
 	}
@@ -94,7 +91,6 @@ public class MdPsn implements Serializable {
 	public void setPkPsnbasdoc(String pkPsnbasdoc) {
 		this.pkPsnbasdoc = pkPsnbasdoc;
 	}
-
 
 	public String getPmobile() {
 		return this.pmobile;
@@ -104,7 +100,6 @@ public class MdPsn implements Serializable {
 		this.pmobile = pmobile;
 	}
 
-
 	public String getPsncode() {
 		return this.psncode;
 	}
@@ -112,7 +107,6 @@ public class MdPsn implements Serializable {
 	public void setPsncode(String psncode) {
 		this.psncode = psncode;
 	}
-
 
 	public String getPsnname() {
 		return this.psnname;
@@ -122,7 +116,6 @@ public class MdPsn implements Serializable {
 		this.psnname = psnname;
 	}
 
-
 	public String getSex() {
 		return this.sex;
 	}
@@ -130,7 +123,6 @@ public class MdPsn implements Serializable {
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
-
 
 	public String getVisible() {
 		return this.visible;
@@ -140,11 +132,9 @@ public class MdPsn implements Serializable {
 		this.visible = visible;
 	}
 
-
 	public String getIstemp() {
 		return istemp;
 	}
-
 
 	public void setIstemp(String istemp) {
 		this.istemp = istemp;
