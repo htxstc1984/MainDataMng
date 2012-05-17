@@ -2,6 +2,7 @@ package com.itg.maindata.dao;
 
 import java.util.List;
 
+import com.itg.maindata.domain.RUserAuth;
 import com.itg.maindata.domain.SyAuthority;
 import com.itg.maindata.domain.SyMenu;
 
@@ -24,4 +25,6 @@ public interface AuthorityDao {
 	public void removeMenus(String pk_auth);
 
 	public void createMenus(String pk_auth, String pk_menus);
+
+	public List<RUserAuth> getAuthsByUser(String pk_users);
 }

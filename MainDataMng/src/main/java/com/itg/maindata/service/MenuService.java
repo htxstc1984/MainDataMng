@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.itg.maindata.dao.MenuDao;
+import com.itg.maindata.domain.RAuthMenu;
 import com.itg.maindata.domain.SyMenu;
 
 public class MenuService {
@@ -62,4 +63,11 @@ public class MenuService {
 	public List<SyMenu> getAllMenus() {
 		return menuDao.getAllMenus();
 	}
+
+	@Transactional(propagation = Propagation.REQUIRED)
+	public List<RAuthMenu> getMenusByAuth(String pk_auths) {
+		return menuDao.getMenusByAuth(pk_auths);
+	}
+	
+
 }

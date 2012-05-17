@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import com.itg.maindata.domain.RAuthMenu;
 import com.itg.maindata.domain.SyMenu;
 
 public class MenuDaoImpl implements MenuDao {
@@ -48,16 +49,18 @@ public class MenuDaoImpl implements MenuDao {
 	}
 
 	@Override
-	public List<SyMenu> getMenusByAuth(String pk_auths) {
+	public List<RAuthMenu> getMenusByAuth(String pk_auths) {
 		// TODO Auto-generated method stub
 		String[] arr_auths = pk_auths.split(",");
 		String sWhere = "";
 		for (String pk_auth : arr_auths) {
 			sWhere = sWhere + "'" + pk_auth + "',";
 		}
-		if (sWhere.equalsIgnoreCase("")) {
-			sWhere = "in (" + sWhere.substring(0, sWhere.length() - 1) + ")";
-			return getMenus(sWhere);
+		if (!sWhere.equalsIgnoreCase("")) {
+			sWhere = "pkAuthority in ("
+					+ sWhere.substring(0, sWhere.length() - 1) + ")";
+			return em.createQuery("select a from RAuthMenu a where " + sWhere,
+					RAuthMenu.class).getResultList();
 		}
 		return null;
 	}

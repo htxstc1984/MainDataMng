@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import com.itg.maindata.domain.RAuthMenu;
+import com.itg.maindata.domain.RUserAuth;
 import com.itg.maindata.domain.SyAuthority;
 import com.itg.maindata.domain.SyMenu;
 
@@ -93,5 +94,20 @@ public class AuthorityDaoImpl implements AuthorityDao {
 			em.persist(ram);
 		}
 
+	}
+
+	public List<RUserAuth> getAuthsByUser(String pk_users) {
+		String[] arr_users = pk_users.split(",");
+		String sWhere = "";
+		for (String pk_user : arr_users) {
+			sWhere = sWhere + "'" + pk_user + "',";
+		}
+		if (!sWhere.equalsIgnoreCase("")) {
+			sWhere = "pkUser in (" + sWhere.substring(0, sWhere.length() - 1)
+					+ ")";
+			return em.createQuery("select a from RUserAuth a where " + sWhere,
+					RUserAuth.class).getResultList();
+		}
+		return null;
 	}
 }

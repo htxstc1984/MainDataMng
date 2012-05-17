@@ -6,8 +6,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="./extjs3.4/resources/css/ext-all.css" type="text/css" />
-<script type="text/javascript" src="./extjs3.4/adapter/ext/ext-base-debug.js"></script>
+<link rel="stylesheet" href="./extjs3.4/resources/css/ext-all.css"
+	type="text/css" />
+<script type="text/javascript"
+	src="./extjs3.4/adapter/ext/ext-base-debug.js"></script>
 <script type="text/javascript" src="./extjs3.4/ext-all-debug.js"></script>
 <script type="text/javascript" src="./js/localJS.js"></script>
 <script type="text/javascript">
@@ -26,13 +28,20 @@
 
 	Ext.onReady(function() {
 		//创建TabPanel  
-		getDataByAjax('./getAllMenus.html', {}, function afterLoad(response,
+		getDataByAjax('./getAuthMenus.html', {}, function afterLoad(response,
 				options) {
-			buildMainFrame(response.responseText);
+			//alert(response.responseText);
+			if (response.responseText == ""
+					|| response.responseText == "\r\n\r\n"
+					|| response.responseText == "\r\n") {
+				Ext.Msg.alert('提示', '该用户没有分配任何菜单权限！');
+				this.location = './index.html';
+			} else {
+				buildMainFrame(response.responseText);
+			}
+
 		});
 	});
-
-	
 </script>
 </head>
 <body>

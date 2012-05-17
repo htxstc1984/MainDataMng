@@ -189,7 +189,7 @@ var toolPanel;
 function buildMainFrame(menuXml) {
 	var toolsbar = new Ext.Toolbar({
         items : [{
-                    text : "中等按钮",
+                    text : "注销",
                     // iconCls : "add24Icon"
                     handler: function(){
                     	alert(this.location);
@@ -220,7 +220,7 @@ function buildMainFrame(menuXml) {
 		region : 'north', // 放在西边，即左侧
 		split : true,
 		heigth : 50,
-		collapsible : true, // 允许伸缩
+		collapsible : false, // 允许伸缩
 		tbar : toolsbar,
 		margins : '3 0 3 3',
 		cmargins : '3 3 3 3',

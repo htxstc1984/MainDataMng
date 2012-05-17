@@ -40,7 +40,7 @@ public class AuthorityController {
 	private MenuService menuService;
 
 	@RequestMapping(value = "/getAuths.html")
-	public String getAllUser() {
+	public String getAllAuths() {
 		return "auth/authList";
 	}
 

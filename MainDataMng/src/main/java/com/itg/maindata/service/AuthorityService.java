@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.itg.maindata.dao.AuthorityDao;
+import com.itg.maindata.domain.RUserAuth;
 import com.itg.maindata.domain.SyAuthority;
 
 public class AuthorityService {
@@ -62,7 +63,13 @@ public class AuthorityService {
 
 	}
 
+	@Transactional(propagation = Propagation.REQUIRED)
 	public boolean findRAuthMenu(String pk_auth, String pk_menu) {
 		return authorityDao.findRAuthMenu(pk_auth, pk_menu);
+	}
+
+	@Transactional(propagation = Propagation.REQUIRED)
+	public List<RUserAuth> getAuthsByUser(String pk_users) {
+		return authorityDao.getAuthsByUser(pk_users);
 	}
 }

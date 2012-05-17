@@ -19,10 +19,12 @@
 	<bean id="authDao" class="com.itg.maindata.dao.AuthorityDaoImpl" />
 	<bean id="menuDao" class="com.itg.maindata.dao.MenuDaoImpl" />
 	<bean id="loginDao" class="com.itg.maindata.dao.LoginDaoImpl" />
+	<bean id="psnDao" class="com.itg.maindata.dao.PsnDaoImpl" />
 	<bean id="userService" class="com.itg.maindata.service.UserService" />
 	<bean id="authService" class="com.itg.maindata.service.AuthorityService" />
 	<bean id="menuService" class="com.itg.maindata.service.MenuService" />
 	<bean id="loginService" class="com.itg.maindata.service.LoginService" />
+	<bean id="psnService" class="com.itg.maindata.service.PsnService" />
 
 </beans>
 

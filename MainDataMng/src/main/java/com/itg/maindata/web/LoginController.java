@@ -53,4 +53,14 @@ public class LoginController {
 		}
 		return "login";
 	}
+
+	@RequestMapping(value = "/index")
+	public String goRoot(HttpServletRequest req, HttpServletResponse res) {
+		LoginCommand logincmd = (LoginCommand) req.getSession().getAttribute(
+				"loginUser");
+		if (logincmd != null) {
+			return "user/testExtjs";
+		}
+		return "login";
+	}
 }

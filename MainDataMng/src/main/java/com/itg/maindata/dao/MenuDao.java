@@ -2,6 +2,7 @@ package com.itg.maindata.dao;
 
 import java.util.List;
 
+import com.itg.maindata.domain.RAuthMenu;
 import com.itg.maindata.domain.SyMenu;
 
 public interface MenuDao {
@@ -15,7 +16,7 @@ public interface MenuDao {
 
 	public List<SyMenu> getMenus(String sWhere);
 
-	public List<SyMenu> getMenusByAuth(String pk_auths);
+	public List<RAuthMenu> getMenusByAuth(String pk_auths);
 
 	public List<SyMenu> getAllMenus();
 }

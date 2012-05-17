@@ -24,6 +24,7 @@ public class MdPsn implements Serializable {
 	private String psnname;
 	private String sex;
 	private String visible;
+	private String istemp;
 
     public MdPsn() {
     }
@@ -137,6 +138,16 @@ public class MdPsn implements Serializable {
 
 	public void setVisible(String visible) {
 		this.visible = visible;
+	}
+
+
+	public String getIstemp() {
+		return istemp;
+	}
+
+
+	public void setIstemp(String istemp) {
+		this.istemp = istemp;
 	}
 
 }

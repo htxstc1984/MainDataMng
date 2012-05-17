@@ -216,6 +216,15 @@ public class ProFilter implements Filter
 			}
 
 		}
+		// if (!request.getRequestURI().startsWith("./index.html")
+		// && !request.getRequestURI().endsWith("/login.html")) {
+		// if (request.getAttribute("loginUser") == null) {
+		// request.setAttribute("message", "对不起，您还没登陆");
+		// request.getRequestDispatcher("./index.html").forward(
+		// svlrequest, svlresponse);
+		// return;
+		// }
+		// }
 
 		// 设置响应方式和支持中文的字元集
 
