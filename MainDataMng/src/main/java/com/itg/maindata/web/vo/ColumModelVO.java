@@ -9,12 +9,12 @@ public class ColumModelVO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String fieldName;
-	private String extType = "Ext.form.TextField";
+	private String extType = "textfield";
 	private String dataType = "String";
 	private String title = "";
-	private int width = 50;
+	private int width = 100;
 	private boolean sortable = false;
-	private boolean allowBlank = false;
+	private boolean allowBlank = true;
 	private String value;
 	private String inputType = "";
 

@@ -5,6 +5,8 @@ import java.util.UUID;
 
 import javax.persistence.*;
 
+import com.itg.maindata.annotation.ext.FieldType;
+
 /**
  * The persistent class for the sy_menu database table.
  * 
@@ -19,6 +21,7 @@ public class SyMenu implements Serializable {
 	private String pkParent;
 	private String url;
 	private int isfolder;
+	private int level;
 
 	public SyMenu() {
 	}
@@ -66,12 +69,21 @@ public class SyMenu implements Serializable {
 		this.url = url;
 	}
 
+	@FieldType(inputType = "", value = "checkbox")
 	public int getIsfolder() {
 		return isfolder;
 	}
 
 	public void setIsfolder(int isfolder) {
 		this.isfolder = isfolder;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
 	}
 
 }

@@ -1,6 +1,8 @@
 package com.itg.maindata.domain;
 
 import java.io.Serializable;
+import java.util.UUID;
+
 import javax.persistence.*;
 
 import com.itg.maindata.annotation.ext.FieldType;
@@ -14,7 +16,7 @@ import com.itg.maindata.annotation.ext.Title;
 @Table(name = "md_psn")
 public class MdPsn implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private String pkMdPsn;
+	private String pkMdPsn = UUID.randomUUID().toString();
 	private String domainacc;
 	private String email;
 	private String nomngflag;
@@ -33,7 +35,7 @@ public class MdPsn implements Serializable {
 
 	@Id
 	@Column(name = "pk_md_psn")
-	@FieldType(value = "Ext.form.Hidden", inputType = "")
+	@FieldType(value = "hidden", inputType = "")
 	public String getPkMdPsn() {
 		return this.pkMdPsn;
 	}
@@ -124,14 +126,17 @@ public class MdPsn implements Serializable {
 		this.sex = sex;
 	}
 
+	@FieldType(inputType = "", value = "checkbox")
 	public String getVisible() {
 		return this.visible;
 	}
 
+	
 	public void setVisible(String visible) {
 		this.visible = visible;
 	}
 
+	@FieldType(inputType = "", value = "checkbox")
 	public String getIstemp() {
 		return istemp;
 	}

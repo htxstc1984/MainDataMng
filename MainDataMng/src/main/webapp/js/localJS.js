@@ -248,7 +248,7 @@ function buildMainFrame(menuXml) {
 							id : "tab" + node.id,
 							closable : true
 						});
-
+						alert(node.url);
 						if (node.url) {
 							newTab.html = "<IFRAME ID='iframe1' HEIGHT=600 WIDTH=800 FRAMEBORDER=0 SCROLLING=auto onload='IframeReSizeWidth(this.id)' SRC='"
 									+ node.url + "'></IFRAME>";

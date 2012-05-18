@@ -17,7 +17,7 @@
 		var grid;
 		var cols;
 		getColSettingByAjax("./getColums.html", {
-			className : "com.itg.maindata.domain.MdPsn",
+			className : "com.itg.maindata.domain.SyMenu",
 			pk : ""
 		}, function(response, options) {
 			eval("cols=" + response.responseText);
@@ -35,8 +35,8 @@
 				colModelItems[colModelItems.length] = colModelItem;
 			}
 			var store = new Ext.data.JsonStore({
-				url : './getPsnList.html',
-				root : 'psns',
+				url : './getMenuList.html',
+				root : 'menus',
 				autoLoad : true,
 				fields : fields
 			});
@@ -45,7 +45,7 @@
 					{
 						text : "添加",
 						handler : function() {
-							this.location = "./getPsn/newins.html";
+							this.location = "./getMenu/newins.html";
 						},
 						scope : this
 					},
@@ -55,8 +55,9 @@
 						handler : function() {
 							var row = grid.getSelectionModel().getSelected();
 							if (row) {
-								this.location = "./getPsn/"
-										+ row.get("pkMdPsn") + ".html";
+								alert(row.get("pkMenu"));
+								this.location = "./getMenu/"
+										+ row.get("pkMenu") + ".html";
 							}
 						},
 						scope : this

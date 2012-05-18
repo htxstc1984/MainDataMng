@@ -1,6 +1,8 @@
 package com.itg.maindata.domain;
 
 import java.io.Serializable;
+import java.util.UUID;
+
 import javax.persistence.*;
 
 
@@ -12,7 +14,7 @@ import javax.persistence.*;
 @Table(name="md_department")
 public class MdDepartment implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private String pkMdDepartment;
+	private String pkMdDepartment = UUID.randomUUID().toString();
 	private String deptid;
 	private String deptname;
 	private String fcflag;

@@ -2,7 +2,6 @@ package com.itg.maindata.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,9 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.dom4j.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.itg.maindata.domain.MdPsn;
 import com.itg.maindata.domain.RAuthMenu;
 import com.itg.maindata.domain.RUserAuth;
 import com.itg.maindata.domain.SyMenu;
@@ -22,6 +24,8 @@ import com.itg.maindata.service.AuthorityService;
 import com.itg.maindata.service.MenuService;
 import com.itg.maindata.service.UserService;
 import com.itg.maindata.service.Util;
+import com.itg.maindata.web.jsonvo.JsonMenus;
+import com.itg.maindata.web.vo.FormSubmitRS;
 import com.itg.maindata.web.vo.LoginCommand;
 
 @Controller
@@ -34,6 +38,51 @@ public class MenuController {
 
 	@Autowired
 	private MenuService menuService;
+
+	@RequestMapping(value = "/getMenus.html")
+	public String getAllmenus() {
+		return "menu/menuList";
+	}
+
+	@RequestMapping(value = "/getMenuList.html")
+	@ResponseBody
+	public Object getMenuList() {
+		JsonMenus menus = new JsonMenus();
+		menus.setMenus(menuService.getAllMenus());
+		return menus;
+	}
+
+	@RequestMapping(value = "/getMenu/{id}")
+	public ModelAndView getMenu(@PathVariable("id") String id) {
+		ModelAndView mav = new ModelAndView("menu/menu");
+
+		SyMenu menu = menuService.getMenu(id);
+
+		if (menu == null) {
+			menu = new SyMenu();
+		}
+
+		mav.addObject("menu", menu);
+
+		return mav;
+	}
+
+	@RequestMapping(value = "/updateMenu.html")
+	@ResponseBody
+	public Object updateCommand(HttpServletRequest request,
+			HttpServletResponse res, SyMenu menu) throws IOException {
+		FormSubmitRS rs = new FormSubmitRS();
+		if (menu.getName() == null || menu.getName().equalsIgnoreCase("")) {
+			rs.setSuccess(false);
+		}
+		// String pkMenus = request.getParameter("pkMenus");
+		// System.out.println(pkMenus);
+		boolean falg = menuService.updateMenu(menu);
+		if (falg) {
+			rs.setSuccess(true);
+		}
+		return rs;
+	}
 
 	@RequestMapping(value = "/getAllMenus.html")
 	@ResponseBody
@@ -99,4 +148,5 @@ public class MenuController {
 		}
 		out.println("");
 	}
+
 }

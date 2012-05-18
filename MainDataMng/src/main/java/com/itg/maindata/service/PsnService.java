@@ -19,8 +19,15 @@ public class PsnService {
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED)
-	public void removePsn(String pk_psn) {
-		psnDao.removePsn(pk_psn);
+	public boolean removePsn(String pk_psn) {
+		try {
+			psnDao.removePsn(pk_psn);
+		} catch (Exception e) {
+			return false;
+			// TODO: handle exception
+		}
+		return true;
+
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED)
@@ -29,8 +36,14 @@ public class PsnService {
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED)
-	public void updatePsn(MdPsn psn) {
-		psnDao.updatePsn(psn);
+	public boolean updatePsn(MdPsn psn) {
+		try {
+			psnDao.updatePsn(psn);
+		} catch (Exception e) {
+			return false;
+			// TODO: handle exception
+		}
+		return true;
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED)

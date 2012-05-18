@@ -1,6 +1,8 @@
 package com.itg.maindata.domain;
 
 import java.io.Serializable;
+import java.util.UUID;
+
 import javax.persistence.*;
 
 
@@ -12,7 +14,7 @@ import javax.persistence.*;
 @Table(name="r_psn_dept")
 public class RPsnDept implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private String pkRPsnDept;
+	private String pkRPsnDept = UUID.randomUUID().toString();
 	private String pkMdDepartment;
 	private String pkMdPsn;
 
