@@ -119,7 +119,6 @@ function treeNodeFromXml(XmlEl) {
 		return null;
 	}
 	var result = {
-		checked : false,
 		text : t
 	};
 
@@ -129,22 +128,17 @@ function treeNodeFromXml(XmlEl) {
 				return; // 目录不添加链接属性
 			result[a.nodeName] = a.nodeValue;
 		});
-
+		
 		var url = result.url;
 		result = new Ext.tree.TreeNode(result); // 根据属性设置构建树
-		result.draggable = false;
-		result.parents = new Array();
 		if (url) {
 			result.url = url;
-		} else {
-			result.expanded = true;
 		}
+		result.expanded = true;
 
 		Ext.each(XmlEl.childNodes, function(el) {
 			if ((el.nodeType == 1) || (el.nodeType == 3)) {
 				var c = treeNodeFromXml(el);
-				c.parents = result.parents;
-				c.parents[c.parents.length] = result.id;
 				if (c) {
 					result.appendChild(c);
 				}
@@ -207,7 +201,7 @@ function buildMainFrame(menuXml) {
 	});
 	menuTree
 			.on(
-					'dblclick',
+					'click',
 					function(node, event) {
 						// alert(node.id);
 						if (node.hasChildNodes()) {
@@ -222,14 +216,15 @@ function buildMainFrame(menuXml) {
 							id : "tab" + node.id,
 							closable : true
 						});
-
+						alert(node.url);
 						if (node.url) {
-							newTab.html = "<IFRAME ID='iframe1' HEIGHT=600 WIDTH=800 FRAMEBORDER=0 SCROLLING=auto onload='IframeReSizeWidth(this.id)' SRC='"
+							newTab.html = "<IFRAME ID='iframe1' HEIGHT=600 WIDTH=800 FRAMEBORDER=0 SCROLLING=auto  SRC='"
 									+ node.url + "'></IFRAME>";
 						}
 
 						tabs.setActiveTab(newTab);
-
+						// IframeReSizeHeight("iframe1");
+						// IframeReSizeWidth("iframe1");
 					});
 
 	// 定义一个Panel
@@ -250,35 +245,3 @@ function buildMainFrame(menuXml) {
 		items : [ toolPanel, nav, tabs ]
 	});
 }
-
-// function IframeReSizeHeight(iframename) {
-//	
-// var pTar = document.getElementById(iframename);
-// if (pTar) {
-// var h;
-// if (pTar.contentDocument&&pTar.contentDocument.body.scrollHeight) {
-// h=pTar.contentDocument.body.scrollHeight;
-// }else if (pTar.Document&&pTar.Document.body.scrollHeight) {
-// h = pTar.Document.body.scrollHeight;
-// }
-// pTar.height=h;
-// }
-// }
-//
-// function IframeReSizeWidth(iframename) {
-//
-// var pTar = document.getElementById(iframename);
-// if (pTar) {
-// var w;
-// if (pTar.contentDocument&&pTar.contentDocument.body.scrollWidth) {
-// w=pTar.contentDocument.body.scrollWidth;
-//
-// }else if (pTar.Document&&pTar.Document.body.scrollWidth) {
-// w = pTar.Document.body.scrollWidth;
-//
-// }
-// pTar.width=w;
-//      　  
-// }
-// }
-
