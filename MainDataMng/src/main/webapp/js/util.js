@@ -119,6 +119,7 @@ function treeNodeFromXml(XmlEl) {
 		return null;
 	}
 	var result = {
+		checked : false,
 		text : t
 	};
 
@@ -128,13 +129,16 @@ function treeNodeFromXml(XmlEl) {
 				return; // 目录不添加链接属性
 			result[a.nodeName] = a.nodeValue;
 		});
-		
+
 		var url = result.url;
 		result = new Ext.tree.TreeNode(result); // 根据属性设置构建树
+		result.draggable = false;
+
 		if (url) {
 			result.url = url;
+		} else {
+			result.expanded = true;
 		}
-		result.expanded = true;
 
 		Ext.each(XmlEl.childNodes, function(el) {
 			if ((el.nodeType == 1) || (el.nodeType == 3)) {
@@ -148,100 +152,30 @@ function treeNodeFromXml(XmlEl) {
 	return result;
 }
 
-var tabs;
-var menuTree;
-var nav;
-var view;
-var toolPanel;
-
-function buildMainFrame(menuXml) {
-	var toolsbar = new Ext.Toolbar({
-		items : [ {
-			text : "注销",
-			// iconCls : "add24Icon"
-			handler : function() {
-				alert(this.location);
-				this.location = "./logout.html";
-			},
-			scope : this
-		} ]
-	});
-
-	tabs = new Ext.TabPanel({
-		region : 'center', // border布局，将页面分成东，南，西，北，中五部分，这里表示TabPanel放在中间
-		margins : '3 3 3 0',
-		activeTab : 0,
-		// tbar : toolsbar,
-		defaults : {
-			autoScroll : true
-		},
-		items : [ {
-			title : 'Closable Tab',
-			html : "这是一个可以关闭的Tab",
-			closable : true
-		} ]
-	});
-
-	toolPanel = new Ext.Panel({
-		// title : 'Navigation',
-		layout : 'border',
-		region : 'north', // 放在西边，即左侧
-		split : true,
-		heigth : 50,
-		collapsible : false, // 允许伸缩
-		tbar : toolsbar,
-		margins : '3 0 3 3',
-		cmargins : '3 3 3 3',
-
-	});
-
-	menuTree = new createXmlTree(menuXml, function() {
-		// this.render();
-		// this.getRootNode().expand();
-	});
-	menuTree
-			.on(
-					'click',
-					function(node, event) {
-						// alert(node.id);
-						if (node.hasChildNodes()) {
-							return;
-						}
-						if (tabs.getItem("tab" + node.id)) {
-							return;
-						}
-						var newTab = tabs.add({
-							title : node.text,
-							html : "这是一个可以关闭的Tab",
-							id : "tab" + node.id,
-							closable : true
-						});
-						alert(node.url);
-						if (node.url) {
-							newTab.html = "<IFRAME ID='iframe1' HEIGHT=600 WIDTH=800 FRAMEBORDER=0 SCROLLING=auto  SRC='"
-									+ node.url + "'></IFRAME>";
-						}
-
-						tabs.setActiveTab(newTab);
-						// IframeReSizeHeight("iframe1");
-						// IframeReSizeWidth("iframe1");
-					});
-
-	// 定义一个Panel
-	nav = new Ext.Panel({
-		title : 'Navigation',
-		layout : 'border',
-		region : 'west', // 放在西边，即左侧
-		split : true,
-		width : 200,
-		collapsible : true, // 允许伸缩
-		margins : '3 0 3 3',
-		cmargins : '3 3 3 3',
-		items : [ menuTree ]
-	});
-
-	view = new Ext.Viewport({
-		layout : 'border',
-		items : [ toolPanel, nav, tabs ]
-	});
+// 这个方法是选择父节点,自动选中所有的子节点
+function selectAllChildren(node, checked) {
+	checked ? node.expand() : node.collapse();
+	if (node.hasChildNodes()) {
+		node.eachChild(function(child) {
+			child.attributes.checked = checked;
+			var cb = child.ui.checkbox;
+			if (cb)
+				cb.checked = checked;
+			selectAllChildren(child, checked);
+		});
+	}
+}
+// 这个方法是选择子节点,自动选中父节点的父节点
+function selectAllParent(node, checked) {
+	if (checked) {
+		node.expand();
+		var parentNode = node.parentNode;
+		if (parentNode != undefined) {
+			parentNode.attributes.checked = checked;
+			var cb = parentNode.ui.checkbox;
+			if (cb)
+				cb.checked = checked;
+			selectAllParent(parentNode, checked);
+		}
+	}
 }

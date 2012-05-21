@@ -1,3 +1,4 @@
+var viewprot;
 function getColSettingByAjax(accUrl, params, callback) {
 	var json;
 	Ext.Ajax.request({
@@ -16,14 +17,20 @@ function getColSettingByAjax(accUrl, params, callback) {
 	return json;
 }
 
-function getUiSettingByCols(accUrl, params, formItems, updateUrl, afterBuild) {
+function getUiSettingByCols(accUrl, params, formItems, updateUrl,
+		beforeSubmitCallBack, afterGetCols) {
+
 	getColSettingByAjax(accUrl, params, function(response, options) {
+		
 		var cols;
 		eval("cols=" + response.responseText);
 		var fields = new Array();
 		var colsetting = cols.cols;
 		var pkFieldName = cols.pkFieldName;
-		var formItems = new Array();
+		if (!formItems) {
+			formItems = new Array();
+		}
+
 		for (i = 0; i < colsetting.length; i++) {
 			colitem = colsetting[i];
 			fields[fields.length] = colitem.fieldName;
@@ -65,6 +72,9 @@ function getUiSettingByCols(accUrl, params, formItems, updateUrl, afterBuild) {
 				disabled : false,
 				handler : function() {
 					if (form1.form.isValid()) {
+						if (beforeSubmitCallBack) {
+							beforeSubmitCallBack(form1);
+						}
 						beforeSubmit(form1.form);
 						form1.form.submit({
 							url : updateUrl,
@@ -92,11 +102,13 @@ function getUiSettingByCols(accUrl, params, formItems, updateUrl, afterBuild) {
 			} ]
 		});
 
-		new Ext.Viewport({
+		var view = new Ext.Viewport({
 			layout : 'border',
 			items : [ form1 ]
 		});
+		afterGetCols(view);
 	});
+
 }
 
 function beforeSubmit(form) {

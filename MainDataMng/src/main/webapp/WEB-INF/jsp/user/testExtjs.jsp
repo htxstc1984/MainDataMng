@@ -11,6 +11,7 @@
 <script type="text/javascript"
 	src="./extjs3.4/adapter/ext/ext-base-debug.js"></script>
 <script type="text/javascript" src="./extjs3.4/ext-all-debug.js"></script>
+<script type="text/javascript" src="./js/util.js"></script>
 <script type="text/javascript" src="./js/localJS.js"></script>
 <script type="text/javascript">
 	if ((typeof Range !== "undefined")

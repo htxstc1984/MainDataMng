@@ -55,7 +55,6 @@
 						handler : function() {
 							var row = grid.getSelectionModel().getSelected();
 							if (row) {
-								alert(row.get("pkMenu"));
 								this.location = "./getMenu/"
 										+ row.get("pkMenu") + ".html";
 							}
