@@ -45,7 +45,7 @@ function buildMainFrame(menuXml) {
 
 	});
 
-	menuTree = new createXmlTree(menuXml, function() {
+	menuTree = new createXmlTree(menuXml, false, function() {
 		// this.render();
 		// this.getRootNode().expand();
 	});
@@ -82,6 +82,7 @@ function buildMainFrame(menuXml) {
 
 	// 定义一个Panel
 	nav = new Ext.Panel({
+		id : 'nav',
 		title : 'Navigation',
 		layout : 'border',
 		region : 'west', // 放在西边，即左侧
@@ -94,6 +95,7 @@ function buildMainFrame(menuXml) {
 	});
 
 	view = new Ext.Viewport({
+		id : 'vp',
 		layout : 'border',
 		items : [ toolPanel, nav, tabs ]
 	});

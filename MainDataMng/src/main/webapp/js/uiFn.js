@@ -21,7 +21,7 @@ function getUiSettingByCols(accUrl, params, formItems, updateUrl,
 		beforeSubmitCallBack, afterGetCols) {
 
 	getColSettingByAjax(accUrl, params, function(response, options) {
-		
+		var triggerIds = new Array();
 		var cols;
 		eval("cols=" + response.responseText);
 		var fields = new Array();
@@ -31,7 +31,7 @@ function getUiSettingByCols(accUrl, params, formItems, updateUrl,
 			formItems = new Array();
 		}
 
-		for (i = 0; i < colsetting.length; i++) {
+		for ( var i = 0; i < colsetting.length; i++) {
 			colitem = colsetting[i];
 			fields[fields.length] = colitem.fieldName;
 			var formItem = {};
@@ -43,10 +43,16 @@ function getUiSettingByCols(accUrl, params, formItems, updateUrl,
 				formItem.value = pk;
 			}
 			if (colitem.extType == "checkbox") {
-				formItem.checked = (formItem.value == "0") ? false : true;
+				formItem.checked = (formItem.value == "1") ? true : false;
 			}
 			formItem.fieldLabel = colitem.title;
 			formItem.allowBlank = colitem.allowBlank;
+			if (colitem.extType == "trigger") {
+				triggerIds[triggerIds.length] = colitem.fieldName;
+				formItem.onTriggerClick = function(e) {
+					this.fireEvent("trigger");
+				}
+			}
 
 			formItems[formItems.length] = formItem;
 		}
@@ -79,12 +85,10 @@ function getUiSettingByCols(accUrl, params, formItems, updateUrl,
 						form1.form.submit({
 							url : updateUrl,
 							success : function(form, action) {
-								Ext.Msg.alert('保存成功', '添加级别成功！');
-								history.back();
+								Ext.Msg.alert('保存成功', '保存成功！');
 							},
 							failure : function(form, action) {
-								Ext.Msg.alert('保存失败', '添加级别失败！');
-								history.back();
+								Ext.Msg.alert('保存失败', '保存失败！');
 							},
 							waitMsg : '正在保存数据，稍后...'
 						});
@@ -102,11 +106,21 @@ function getUiSettingByCols(accUrl, params, formItems, updateUrl,
 			} ]
 		});
 
+		for ( var i = 0; i < triggerIds.length; i++) {
+			form1.get(triggerIds[i]).addEvents({
+				"trigger" : true
+			});
+		}
+
 		var view = new Ext.Viewport({
+			id : 'vp',
 			layout : 'border',
 			items : [ form1 ]
 		});
-		afterGetCols(view);
+		if (afterGetCols) {
+			afterGetCols(form1);
+		}
+
 	});
 
 }
@@ -148,4 +162,11 @@ function buildList(store, colModel, tbar) {
 	});
 
 	return grid;
+}
+
+function getMenuTree(menuXml) {
+	var menuTree;
+	menuTree = new createXmlTree(menuXml, false, function() {
+	});
+	return menuTree;
 }

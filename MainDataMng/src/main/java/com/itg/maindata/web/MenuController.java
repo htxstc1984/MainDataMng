@@ -23,7 +23,7 @@ import com.itg.maindata.domain.SyUser;
 import com.itg.maindata.service.AuthorityService;
 import com.itg.maindata.service.MenuService;
 import com.itg.maindata.service.UserService;
-import com.itg.maindata.service.Util;
+import com.itg.maindata.util.Util;
 import com.itg.maindata.web.jsonvo.JsonMenus;
 import com.itg.maindata.web.vo.FormSubmitRS;
 import com.itg.maindata.web.vo.LoginCommand;

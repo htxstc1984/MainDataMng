@@ -16,6 +16,13 @@
 	Ext.onReady(function() {
 		var grid;
 		var cols;
+		var win = new Ext.Window({
+			id : "menuTree",
+			width : 400,
+			height : 400,
+			modal : true
+		});
+
 		getColSettingByAjax("./getColums.html", {
 			className : "com.itg.maindata.domain.MdPsn",
 			pk : ""

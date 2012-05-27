@@ -17,16 +17,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.itg.maindata.domain.SyAuthority;
 import com.itg.maindata.domain.SyMenu;
-import com.itg.maindata.domain.SyUser;
 import com.itg.maindata.service.AuthorityService;
 import com.itg.maindata.service.MenuService;
 import com.itg.maindata.service.UserService;
+import com.itg.maindata.util.CglibProxy;
 import com.itg.maindata.web.jsonvo.JsonAuthoritys;
 import com.itg.maindata.web.jsonvo.JsonRAuthMenuUI;
-import com.itg.maindata.web.jsonvo.JsonRUserAuthUI;
 import com.itg.maindata.web.vo.FormSubmitRS;
 import com.itg.maindata.web.vo.RAuthMenuUI;
-import com.itg.maindata.web.vo.RUserAuthUI;
 
 @Controller
 public class AuthorityController {
@@ -86,7 +84,7 @@ public class AuthorityController {
 		List<SyMenu> menuList = menuService.getMenus("1=1");
 		JsonRAuthMenuUI jram = new JsonRAuthMenuUI();
 		List<RAuthMenuUI> rams = new ArrayList<RAuthMenuUI>();
-
+		
 		for (SyMenu menu : menuList) {
 			RAuthMenuUI ram = new RAuthMenuUI();
 			ram.setPkMenu(menu.getPkMenu());

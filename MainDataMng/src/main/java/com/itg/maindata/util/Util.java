@@ -1,4 +1,4 @@
-package com.itg.maindata.service;
+package com.itg.maindata.util;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
@@ -79,6 +79,18 @@ public class Util {
 						+ method.getName().substring(4,
 								method.getName().length());
 				col.setFieldName(colName);
+
+				if (instance != null) {
+					Object valueObj = method.invoke(instance, new Object[] {});
+
+					if (valueObj != null) {
+						String value = String.valueOf(valueObj);
+						col.setValue(value);
+					} else {
+						col.setValue("");
+					}
+				}
+
 				Annotation[] annos = method.getAnnotations();
 				for (Annotation anno : annos) {
 					if (anno.annotationType() == Width.class) {
@@ -105,16 +117,6 @@ public class Util {
 					}
 				}
 
-				if (instance != null) {
-					Object valueObj = method.invoke(instance, new Object[] {});
-
-					if (valueObj != null) {
-						String value = String.valueOf(valueObj);
-						col.setValue(value);
-					} else {
-						col.setValue("");
-					}
-				}
 				if (col.getTitle().equalsIgnoreCase("")) {
 					col.setTitle(col.getFieldName());
 				}
@@ -128,5 +130,34 @@ public class Util {
 		}
 		jcols.setCols(cols);
 		return jcols;
+	}
+
+	// public ColumModelVO[] getColumsByRefClass(String className, String pk,
+	// String refTableClsName) {
+	//
+	// }
+
+	public String getPkFieldNameByClassName(String className)
+			throws ClassNotFoundException {
+		Class clazz = Class.forName(className);
+		Method[] methods = clazz.getMethods();
+		for (Method method : methods) {
+			if (method.getName().startsWith("get")
+					&& !method.getName().equalsIgnoreCase("getClass")) {
+				char firstLetter = method.getName().charAt(3);
+				char lowerLetter = Character.toLowerCase(firstLetter);
+				String first = String.valueOf(new char[] { lowerLetter });
+				String colName = first
+						+ method.getName().substring(4,
+								method.getName().length());
+				Annotation[] annos = method.getAnnotations();
+				for (Annotation anno : annos) {
+					if (anno.annotationType() == Id.class) {
+						return colName;
+					}
+				}
+			}
+		}
+		return null;
 	}
 }

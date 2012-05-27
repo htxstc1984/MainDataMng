@@ -53,6 +53,7 @@ public class SyMenu implements Serializable {
 	}
 
 	@Column(name = "pk_parent")
+	@FieldType(value = "trigger", inputType = "")
 	public String getPkParent() {
 		return this.pkParent;
 	}

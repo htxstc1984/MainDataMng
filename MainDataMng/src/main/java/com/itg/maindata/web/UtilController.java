@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.itg.maindata.service.Util;
 import com.itg.maindata.service.UtilService;
+import com.itg.maindata.util.Util;
 import com.itg.maindata.web.vo.FormSubmitRS;
 
 @Controller
@@ -31,9 +31,13 @@ public class UtilController {
 		Util util = new Util();
 		if (pk != null && !pk.equalsIgnoreCase("")) {
 			instance = utilService.getVOByPk(className, pk);
+			// String refFieldName = util.getPkFieldNameByClassName(className);
+			// Object[] objs = utilService.getVOsByRefPk(
+			// "com.itg.maindata.domain.SyMenu",
+			// "com.itg.maindata.domain.RAuthMenu", refFieldName, pk);
+			// String a = "";
 		}
 		return util.getColumsByClass(className, instance);
 	}
-	
 
 }

@@ -39,6 +39,19 @@
 				this.location = './index.html';
 			} else {
 				buildMainFrame(response.responseText);
+				var tp = new Ext.Panel({
+					// title : 'Navigation',
+					layout : 'border',
+					region : 'south', // 放在西边，即左侧
+					split : true,
+					heigth : 50,
+					collapsible : false, // 允许伸缩
+					//tbar : toolsbar,
+					margins : '3 0 3 3',
+					cmargins : '3 3 3 3',
+
+				});
+				//Ext.getCmp('nav').add(tp).doLayout();
 			}
 
 		});

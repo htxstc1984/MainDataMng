@@ -24,19 +24,49 @@
 	src="./extjs3.4/adapter/ext/ext-base-debug.js"></script>
 <script type="text/javascript" src="./extjs3.4/ext-all-debug.js"></script>
 <script type="text/javascript" src="./js/uiFn.js"></script>
+<script type="text/javascript" src="./js/util.js"></script>
 <script type="text/javascript">
 	var pk = "${menu.pkMenu}";
 	var formItems;
 	var form1;
+	var win;
 
 	Ext.onReady(function() {
 		var cols;
 		getUiSettingByCols("./getColums.html", {
 			className : "com.itg.maindata.domain.SyMenu",
 			pk : pk
-		}, formItems, './updateMenu.html');
+		}, formItems, './updateMenu.html', null, function(form) {
+			setParentTrigger(form);
+		});
 
 	});
+
+	function setParentTrigger(form) {
+		var pkParent = form.get("pkParent");
+		pkParent.on("trigger", function() {
+			//alert(1);
+			getDataByAjax('./getAllMenus.html', {}, function afterLoad(
+					response, options) {
+				var menuTree = getMenuTree(response.responseText);
+				menuTree.on('dblclick', function(node, event) {
+					pkParent.setValue(node.id);
+					win.hide();
+				});
+				if (!win) {
+					win = new Ext.Window({
+						id : "menuTree",
+						width : 400,
+						height : 400,
+						modal : true,
+						items : [ menuTree ]
+					});
+				}
+				win.show();
+			});
+
+		}, this);
+	}
 </script>
 </head>
 <body>
